@@ -16,10 +16,10 @@ A simple GTK# application demonstrating basic window creation, scrolling, and VS
 ## Building
 
 Each project contains its own Makefile. Navigate to the project directory and run:
-```bash
+'''bash
 make          # Release build
 make debug    # Debug build
-```
+'''
 
 ## Debugging with VSCode
 
