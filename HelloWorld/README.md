@@ -16,14 +16,14 @@ A basic GTK# 3.0 application demonstrating window management, scrolling containe
 - **'HelloWorld.sln'** - Visual Studio solution file
 
 ## Building
-'''bash
-# Release build
+bash
+### Release build
 make
 
-# Debug build with symbols
+## Debug build with symbols
 make debug
 
-# Run with Mono debugger agent (for VSCode)
+### Run with Mono debugger agent (for VSCode)
 make debug-run
 '''
 
@@ -46,7 +46,7 @@ The 'debug-run' Makefile target:
 
 ## Running
 '''bash
-# After building
+### After building
 mono GtkHelloScroll.exe
 '''
 
