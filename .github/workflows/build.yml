@@ -11,7 +11,7 @@ jobs:
         working-directory: HelloWorld
         run: make build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: GtkHelloScroll
           path: HelloWorld/GtkHelloScroll.exe HelloWorld/*.ui
