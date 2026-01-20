@@ -1,0 +1,25 @@
+RM=rm -f
+
+# Default target
+all: build
+
+# Build Release
+build: $(SRC) $(UI_FILES)
+	mcs -sdk:4.5 -pkg:gtk-sharp-3.0 -out:$(APP) $(SRC)
+	@echo "Build complete."
+
+# Build Debug
+debug: $(SRC) $(UI_FILES)
+	mcs -debug -sdk:4.5 -pkg:gtk-sharp-3.0 -out:$(APP) $(SRC)
+	@echo "Debug build complete."
+
+# Debug run (Linux only)
+debug-run: debug
+	@mono --debug --debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:55555,suspend=y $(APP)
+
+# Clean
+clean:
+	$(RM) $(APP) *.mdb
+	@echo "Clean complete."
+
+.PHONY: all build debug debug-run clean
