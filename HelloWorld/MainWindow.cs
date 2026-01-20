@@ -10,7 +10,7 @@ public class MainWindow : GtkWindowBase
     private Button exitButton;
     private int xOffset = 0;
 
-    public MainWindow() 
+    public MainWindow()
         : base("MainWindow.ui", "GtkHelloScroll.MainWindow.ui")
     {
         // Constructor does not need anything else — base handles UI loading
@@ -18,6 +18,10 @@ public class MainWindow : GtkWindowBase
 
     protected override void Setup(Builder builder)
     {
+        var quitMenuItem = (MenuItem)builder.GetObject("quit_menu_item");
+        if (quitMenuItem != null)
+            quitMenuItem.Activated += delegate { Gtk.Application.Quit(); };
+
         scrollArea = (Fixed)builder.GetObject("scroll_area");
         scrollLabel = (Label)builder.GetObject("scroll_label");
         exitButton = (Button)builder.GetObject("exit_button");

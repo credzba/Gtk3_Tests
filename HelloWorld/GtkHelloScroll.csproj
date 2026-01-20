@@ -12,6 +12,10 @@
     <PackageReference Include="GtkSharp" Version="3.24.24.95" />
   </ItemGroup>
 
+<ItemGroup>
+  <EmbeddedResource Include="*.ui" />
+</ItemGroup>
+
   <ItemGroup>
     <Content Include="MainWindow.ui">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

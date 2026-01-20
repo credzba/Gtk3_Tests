@@ -7,12 +7,30 @@
     <property name="default-width">600</property>
     <property name="default-height">200</property>
     <signal name="destroy" handler="OnDestroy"/>
-
     <child>
       <object class="GtkBox" id="vbox">
         <property name="orientation">vertical</property>
         <property name="spacing">5</property>
-
+<!-- Menu bar -->
+<child>
+  <object class="GtkMenuBar" id="menubar">
+    <child>
+      <object class="GtkMenuItem">
+        <property name="label">File</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <child>
+              <object class="GtkMenuItem" id="quit_menu_item">
+                <property name="label">Quit</property>
+                <signal name="activate" handler="OnQuitActivated"/>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</child>
         <!-- Scrolling area -->
         <child>
           <object class="GtkFixed" id="scroll_area">

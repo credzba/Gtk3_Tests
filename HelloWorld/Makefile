@@ -2,6 +2,7 @@
 
 APP=GtkHelloScroll.exe
 SOLUTION=HelloWorld.sln
+RESOURCES=$(foreach ui,$(UI_FILES),-resource:$(ui),GtkHelloScroll.$(ui))
 
 # All C# source files
 SRC=$(wildcard *.cs)

@@ -13,6 +13,11 @@ debug: $(SRC) $(UI_FILES)
 	MSBuild.exe $(SOLUTION) -p:Configuration=Debug -p:Platform=x64
 	@echo "Debug build complete."
 
+# Embedded build (MSBuild handles resources via .csproj ItemGroup)
+embed: $(SRC) $(UI_FILES)
+	MSBuild.exe $(SOLUTION) -p:Configuration=Release -p:Platform=x64 -p:EmbedResources=true
+	@echo "Embedded build complete."
+
 # Clean
 clean:
 	MSBuild.exe $(SOLUTION) -t:Clean
