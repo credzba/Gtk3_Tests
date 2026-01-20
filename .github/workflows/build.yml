@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Mono
-        run: sudo apt-get update && sudo apt-get install -y mono-complete gtk-sharp-3.0
+        run: sudo apt-get update && sudo apt-get install -y mono-complete gtk-sharp3
       - name: Build
         working-directory: HelloWorld
         run: make build
