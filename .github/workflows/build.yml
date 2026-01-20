@@ -16,4 +16,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GtkHelloScroll
-          path: HelloWorld/GtkHelloScroll.exe HelloWorld/*.ui
+          path: |
+	    HelloWorld/GtkHelloScroll.exe
+	    HelloWorld/*.ui
