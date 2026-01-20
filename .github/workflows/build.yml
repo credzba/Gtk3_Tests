@@ -17,5 +17,5 @@ jobs:
         with:
           name: GtkHelloScroll
           path: |
-	    HelloWorld/GtkHelloScroll.exe
-	    HelloWorld/*.ui
+            HelloWorld/GtkHelloScroll.exe
+            HelloWorld/*.ui
