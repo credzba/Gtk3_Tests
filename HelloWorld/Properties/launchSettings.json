@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GtkHelloScroll": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "GTK_THEME": "Windows-10-Dark"
+      }
+    }
+  }
+}

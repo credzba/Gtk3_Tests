@@ -15,6 +15,11 @@ A basic GTK# 3.0 application demonstrating window management, scrolling containe
 - **'GtkHelloScroll.csproj'** - C# project file for IDE integration
 - **'HelloWorld.sln'** - Visual Studio solution file
 
+## Themes
+The application supports GTK themes. You can change the theme by setting the 'GTK_THEME' environment variable before running the application.
+The default themes are 'Adwaita', 'HighContrast' and 'HighContrastInverted'.
+New themes can be added in the {executabledirectory}/share/themes/ directory. 
+
 ## Building
 bash
 ### Release build

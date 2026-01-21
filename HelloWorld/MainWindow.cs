@@ -1,7 +1,7 @@
 // MainWindow.cs
 using System;
 using Gtk;
-using GLib;
+
 
 public class MainWindow : GtkWindowBase
 {
@@ -29,7 +29,7 @@ public class MainWindow : GtkWindowBase
         window.Destroyed += delegate { Gtk.Application.Quit(); };
         exitButton.Clicked += delegate { Gtk.Application.Quit(); };
 
-        GLib.Timeout.Add(50, new TimeoutHandler(() =>
+        GLib.Timeout.Add(50, new GLib.TimeoutHandler(() =>
         {
             xOffset += 5;
             if (xOffset > 600)

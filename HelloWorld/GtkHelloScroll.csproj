@@ -20,6 +20,9 @@
     <Content Include="MainWindow.ui">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="share/**/*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>    
   </ItemGroup>
 
 </Project>

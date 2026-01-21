@@ -5,17 +5,17 @@ all: build
 
 # Build Release
 build: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Release -p:Platform=x64
+	MSBuild.exe $(SOLUTION) -p:Configuration=Release
 	@echo "Build complete."
 
 # Build Debug
 debug: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Debug -p:Platform=x64
+	MSBuild.exe $(SOLUTION) -p:Configuration=Debug
 	@echo "Debug build complete."
 
 # Embedded build (MSBuild handles resources via .csproj ItemGroup)
 embed: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Release -p:Platform=x64 -p:EmbedResources=true
+	MSBuild.exe $(SOLUTION) -p:Configuration=Release -p:EmbedResources=true
 	@echo "Embedded build complete."
 
 # Clean

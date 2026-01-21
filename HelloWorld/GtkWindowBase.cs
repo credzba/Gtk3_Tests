@@ -18,27 +18,9 @@ public abstract class GtkWindowBase
     /// <param name="embeddedResourceName">The embedded resource name</param>
     public GtkWindowBase(string uiFile, string embeddedResourceName)
     {
-        // Ensure GTK initialized
+        Environment.SetEnvironmentVariable("GTK_DEBUG", "interactive");
+        Environment.SetEnvironmentVariable("G_MESSAGES_DEBUG", "all");
         Gtk.Application.Init();
-
-        // Load theme
-        const uint STYLE_PROVIDER_PRIORITY_APPLICATION = 600;
-        var cssProvider = new CssProvider();
-        var themeFile = System.IO.File.Exists("dark.css") ? "dark.css" : "light.css";
-        if (System.IO.File.Exists(themeFile))
-        {
-            cssProvider.LoadFromPath(themeFile);
-            StyleContext.AddProviderForScreen(
-                Gdk.Screen.Default,
-                cssProvider,
-                STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        }
-        // Platform-specific theme on Windows
-        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-        {
-            Gtk.Settings.Default.ThemeName = "win32";
-        }
 
         Builder builder = new Builder();
 
@@ -69,6 +51,28 @@ public abstract class GtkWindowBase
         // Let derived classes handle further widget setup and signals
         Setup(builder);
     }
+
+    public void ApplyTheme(string themeFilePath)
+    {
+        if (File.Exists(themeFilePath))
+        {
+            var cssProvider = new CssProvider();
+            Console.WriteLine($"Loading CSS from {themeFilePath}");
+            cssProvider.LoadFromPath(themeFilePath);
+
+            StyleContext.AddProviderForScreen(
+                Gdk.Screen.Default,
+                cssProvider,
+                600  // STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        }
+        else
+        {
+            Console.WriteLine($"CSS file not found: {themeFilePath}");
+        }
+    }
+
+
 
     /// <summary>
     /// Derived classes implement this to setup widget references and signals
