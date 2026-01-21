@@ -20,6 +20,7 @@ public abstract class GtkWindowBase
     {
         Environment.SetEnvironmentVariable("GTK_DEBUG", "interactive");
         Environment.SetEnvironmentVariable("G_MESSAGES_DEBUG", "all");
+
         Gtk.Application.Init();
 
         Builder builder = new Builder();
