@@ -19,4 +19,4 @@ jobs:
           path: |
             HelloWorld/GtkHelloScroll.exe
             HelloWorld/*.ui
-	    HelloWorld/share/**
+            HelloWorld/share/**
