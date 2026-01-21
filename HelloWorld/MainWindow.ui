@@ -1,69 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-
   <object class="GtkWindow" id="main_window">
+    <property name="can-focus">False</property>
     <property name="title">GTK Hello Scroll</property>
     <property name="default-width">600</property>
     <property name="default-height">200</property>
-    <signal name="destroy" handler="OnDestroy"/>
+    <signal name="destroy" handler="OnDestroy" swapped="no"/>
     <child>
       <object class="GtkBox" id="vbox">
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">5</property>
-<!-- Menu bar -->
-<child>
-  <object class="GtkMenuBar" id="menubar">
-    <child>
-      <object class="GtkMenuItem">
-        <property name="label">File</property>
-        <child type="submenu">
-          <object class="GtkMenu">
+        <child>
+          <object class="GtkMenuBar" id="menubar">
+            <property name="can-focus">False</property>
             <child>
-              <object class="GtkMenuItem" id="quit_menu_item">
-                <property name="label">Quit</property>
-                <signal name="activate" handler="OnQuitActivated"/>
+              <object class="GtkMenuItem">
+                <property name="can-focus">False</property>
+                <property name="label">File</property>
+                <child type="submenu">
+                  <object class="GtkMenu">
+                    <property name="can-focus">False</property>
+                    <child>
+                      <object class="GtkMenuItem" id="quit_menu_item">
+                        <property name="can-focus">False</property>
+                        <property name="label">Quit</property>
+                        <signal name="activate" handler="OnQuitActivated" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
-      </object>
-    </child>
-  </object>
-</child>
-        <!-- Scrolling area -->
         <child>
           <object class="GtkFixed" id="scroll_area">
             <property name="height-request">40</property>
-
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkLabel" id="scroll_label">
+                <property name="can-focus">False</property>
                 <property name="label">Hello World</property>
               </object>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
-
-        <!-- Spacer to push button to bottom -->
         <child>
           <object class="GtkBox">
-            <property name="expand">true</property>
+            <property name="can-focus">False</property>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
-
-        <!-- Exit button -->
         <child>
           <object class="GtkBox">
+            <property name="can-focus">False</property>
             <property name="halign">center</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="xpad">20</property>
+                <property name="label" translatable="yes">Some test text</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkButton" id="exit_button">
                 <property name="label">Exit</property>
-                <signal name="clicked" handler="OnExitClicked"/>
+                <property name="can-focus">False</property>
+                <property name="receives-default">False</property>
+                <signal name="clicked" handler="OnExitClicked" swapped="no"/>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
         </child>
-
       </object>
     </child>
   </object>
