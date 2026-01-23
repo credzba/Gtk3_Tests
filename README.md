@@ -4,19 +4,19 @@ A collection of GTK# 3.0 (C#/Mono) and GTK-rs (Rust) example applications and ex
 
 ## Repository Structure
 
-Gtk3_Tests/
-├── csharp/ # C# GTK# 3.0 examples (Mono)
-│ └── HelloWorld/ # Basic GTK# window with debugging setup
-│ ├──  ...
-├── rust/ # Rust GTK-rs examples
-│ └── hello_world/ # Basic GTK-rs application
-│ ├── src/
-│ │ ├── main.rs
-│ │ ├── main_window.rs
-│ │ └── main_window.ui
-│ └── ...
-├── LICENSE
-└── README.md
+`Gtk3_Tests/`
+`├── csharp/ # C# GTK# 3.0 examples (Mono)`
+`│ └── HelloWorld/ # Basic GTK# window with debugging setup`
+`│ ├──  ...`
+`├── rust/ # Rust GTK-rs examples`
+`│ └── hello_world/ # Basic GTK-rs application`
+`│ ├── src/`
+`│ │ ├── main.rs`
+`│ │ ├── main_window.rs`
+`│ │ └── main_window.ui`
+`│ └── ...`
+`├── LICENSE`
+`└── README.md`
 
 ## Themes
 
