@@ -1,0 +1,36 @@
+# Makefile.windows for hello_world GTK3 Rust application
+# Windows-specific build and packaging
+
+APP_NAME = hello-world
+BUILD_DIR = target/release
+DIST_DIR = dist
+PACKAGE_NAME = $(APP_NAME)-windows-x86_64
+
+.PHONY: package package-zip
+
+# Main package target
+package: package-zip
+
+# Create zip package
+package-zip:
+	@echo "Creating Windows package..."
+	@if not exist $(DIST_DIR) mkdir $(DIST_DIR)
+	copy $(BUILD_DIR)\$(APP_NAME).exe $(DIST_DIR)\
+	@echo "Package created in $(DIST_DIR)"
+	@echo "To create zip, run: powershell Compress-Archive -Path $(DIST_DIR)\* -DestinationPath $(PACKAGE_NAME).zip"
+
+# Alternative using PowerShell directly
+package-zip-ps:
+	@echo "Creating Windows package..."
+	powershell -Command "New-Item -ItemType Directory -Force -Path $(DIST_DIR) | Out-Null"
+	powershell -Command "Copy-Item $(BUILD_DIR)\$(APP_NAME).exe -Destination $(DIST_DIR)\"
+	powershell -Command "Compress-Archive -Path $(DIST_DIR)\* -DestinationPath $(PACKAGE_NAME).zip -Force"
+	@echo "Package created: $(PACKAGE_NAME).zip"
+
+# Create installer directory structure
+package-installer:
+	@echo "Creating installer directory structure..."
+	powershell -Command "New-Item -ItemType Directory -Force -Path $(DIST_DIR)\bin | Out-Null"
+	powershell -Command "New-Item -ItemType Directory -Force -Path $(DIST_DIR)\share | Out-Null"
+	powershell -Command "Copy-Item $(BUILD_DIR)\$(APP_NAME).exe -Destination $(DIST_DIR)\bin\"
+	@echo "Installer structure created in $(DIST_DIR)"

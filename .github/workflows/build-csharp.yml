@@ -1,0 +1,33 @@
+name: Build C# Projects
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'csharp/**'
+      - '.github/workflows/build-csharp.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'csharp/**'
+      - '.github/workflows/build-csharp.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete gtk-sharp3
+      - name: Build
+        working-directory: csharp/HelloWorld
+        run: make build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GtkHelloScroll
+          path: |
+            csharp/HelloWorld/GtkHelloScroll.exe
+            csharp/HelloWorld/*.ui
+            csharp/HelloWorld/share/**

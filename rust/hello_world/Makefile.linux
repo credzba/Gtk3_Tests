@@ -1,0 +1,42 @@
+# Makefile.linux for hello_world GTK3 Rust application
+# Linux-specific build and packaging
+
+APP_NAME = hello-world
+BUILD_DIR = target/release
+DIST_DIR = dist
+PACKAGE_NAME = $(APP_NAME)-linux-x86_64
+
+.PHONY: package package-tar package-deb
+
+# Main package target
+package: package-tar
+
+# Create tar.gz package
+package-tar:
+	@echo "Creating Linux package..."
+	mkdir -p $(DIST_DIR)
+	cp $(BUILD_DIR)/$(APP_NAME) $(DIST_DIR)/
+	cp src/*.ui $(DIST_DIR)/ 2>/dev/null || true
+	strip $(DIST_DIR)/$(APP_NAME)
+	tar -czf $(PACKAGE_NAME).tar.gz -C $(DIST_DIR) .
+	@echo "Package created: $(PACKAGE_NAME).tar.gz"
+
+# Optional: Create a simple directory structure for installation
+package-install-tree:
+	@echo "Creating installation tree..."
+	mkdir -p $(DIST_DIR)/usr/local/bin
+	mkdir -p $(DIST_DIR)/usr/local/share/$(APP_NAME)
+	cp $(BUILD_DIR)/$(APP_NAME) $(DIST_DIR)/usr/local/bin/
+	strip $(DIST_DIR)/usr/local/bin/$(APP_NAME)
+	cp src/*.ui $(DIST_DIR)/usr/local/share/$(APP_NAME)/ 2>/dev/null || true
+	@echo "Installation tree created in $(DIST_DIR)"
+
+# Install to system (requires sudo)
+install-system: release
+	sudo install -m 755 $(BUILD_DIR)/$(APP_NAME) /usr/local/bin/
+	@echo "Installed to /usr/local/bin/$(APP_NAME)"
+
+# Uninstall from system (requires sudo)
+uninstall-system:
+	sudo rm -f /usr/local/bin/$(APP_NAME)
+	@echo "Uninstalled from /usr/local/bin/"
