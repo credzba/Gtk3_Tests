@@ -3,18 +3,13 @@ RM=rm -f
 # Default target
 all: build
 
-# Build Release
-build: $(SRC) $(UI_FILES)
-	mcs -sdk:4.5 -pkg:gtk-sharp-3.0 -out:$(APP) $(SRC)
-	@echo "Build complete."
-
 # Build Debug
 debug: $(SRC) $(UI_FILES)
 	mcs -debug -sdk:4.5 -pkg:gtk-sharp-3.0 -out:$(APP) $(SRC)
 	@echo "Debug build complete."
 
-# Embedded build (UI files as resources)
-embed: $(SRC) $(UI_FILES)
+# build (UI files as resources for fall back if .ui is missing)
+build: $(SRC) $(UI_FILES)
 	mcs -sdk:4.5 -pkg:gtk-sharp-3.0 $(RESOURCES) -out:$(APP) $(SRC)
 	@echo "Embedded build complete."
 
