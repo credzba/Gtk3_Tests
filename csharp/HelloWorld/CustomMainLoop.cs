@@ -1,6 +1,8 @@
-// CustomMainLoop.cs - Version 5.0 - Simplified with custom main loop
+// CustomMainLoop.cs - Version 6.0 - Custom main loop with wake mechanism
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading;
 using Gtk;
 using GLib;
 using NLog;
@@ -8,6 +10,7 @@ using NLog;
 /// <summary>
 /// Custom GTK main loop with thread-safe invoke queue.
 /// Runs its own main loop that processes both GTK events and queued actions.
+/// Uses platform-specific wake mechanisms to avoid busy-waiting.
 /// 
 /// Usage - Replace in your code:
 ///    Gtk.Application.Init() → CustomMainLoop.Instance.Init()
@@ -18,12 +21,15 @@ using NLog;
 public class CustomMainLoop
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private static CustomMainLoop instance;
+    private static CustomMainLoop? instance;
     private static readonly object instanceLock = new object();
     
     private readonly Queue<System.Action> invokeQueue;
     private readonly object queueLock;
     private volatile bool running;
+    
+    // Platform-specific wake mechanism
+    private IWakeMechanism? wakeMechanism;
     
     /// <summary>
     /// Get the singleton instance of CustomMainLoop
@@ -51,6 +57,17 @@ public class CustomMainLoop
         invokeQueue = new Queue<System.Action>();
         queueLock = new object();
         running = false;
+        
+        // Detect platform and create appropriate wake mechanism
+        if (Environment.OSVersion.Platform == PlatformID.Unix ||
+            Environment.OSVersion.Platform == PlatformID.MacOSX)
+        {
+            wakeMechanism = new UnixPipeWake();
+        }
+        else
+        {
+            wakeMechanism = new WindowsEventWake();
+        }
         
         logger.Debug("Instance created");
     }
@@ -90,10 +107,18 @@ public class CustomMainLoop
         if (action == null)
             throw new ArgumentNullException("action");
         
+        bool shouldWake = false;
+        
         lock (queueLock)
         {
+            shouldWake = invokeQueue.Count == 0;
             invokeQueue.Enqueue(action);
             logger.Debug("ENQUEUE - Queue now has {0} items", invokeQueue.Count);
+        }
+        
+        if (shouldWake)
+        {
+            wakeMechanism?.Wake();
         }
     }
     
@@ -104,26 +129,24 @@ public class CustomMainLoop
     public void Run()
     {
         running = true;
-            
+        
+        // Setup wake mechanism
+        wakeMechanism?.Setup(ProcessInvokeQueue, () => running);
+        
         logger.Info("Starting custom main loop");
         
         // Our own main loop
         while (running)
         {
-            // Process GTK events (may block briefly)
-            bool hadEvents = GLib.MainContext.Iteration(false); // false = don't block
+            // Process GTK events (blocks, but wake mechanism can interrupt)
+            bool hadEvents = GLib.MainContext.Iteration(true);
             
             // Process our invoke queue
             ProcessInvokeQueue();
-            
-            // Small sleep to avoid busy-waiting if no events
-            if (!hadEvents && PendingCount == 0)
-            {
-                System.Threading.Thread.Sleep(1);
-            }
         }
         
         logger.Info("Main loop exited");
+        wakeMechanism?.Cleanup();
     }
 
     /// <summary>
@@ -134,7 +157,8 @@ public class CustomMainLoop
     {
         logger.Info("Quit requested");
         running = false;
-        // Don't call Gtk.Application.Quit() since we're not using Gtk.Application.Run()
+        // Wake the main loop so it can exit
+        wakeMechanism?.Wake();
     }
     
     /// <summary>
@@ -142,7 +166,7 @@ public class CustomMainLoop
     /// </summary>
     private void ProcessInvokeQueue()
     {
-        System.Action[] actions = null;
+        System.Action[]? actions = null;
         
         lock (queueLock)
         {
@@ -183,5 +207,197 @@ public class CustomMainLoop
                 return invokeQueue.Count;
             }
         }
+    }
+}
+
+/// <summary>
+/// Interface for platform-specific wake mechanisms
+/// </summary>
+interface IWakeMechanism
+{
+    void Setup(System.Action processQueue, Func<bool> isRunning);
+    void Wake();
+    void Cleanup();
+}
+
+/// <summary>
+/// Unix/Linux implementation using self-pipe pattern
+/// </summary>
+class UnixPipeWake : IWakeMechanism
+{
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+    private int pipeFdRead = -1;
+    private int pipeFdWrite = -1;
+    private GLib.IOChannel? ioChannel;
+    private uint ioWatchId;
+    private System.Action? processQueue;
+    private Func<bool>? isRunning;
+    
+    [DllImport("libc")]
+    private static extern int pipe(int[] pipefd);
+    
+    [DllImport("libc")]
+    private static extern IntPtr write(int fd, byte[] buf, UIntPtr count);
+    
+    [DllImport("libc")]
+    private static extern IntPtr read(int fd, byte[] buf, UIntPtr count);
+    
+    [DllImport("libc")]
+    private static extern int close(int fd);
+    
+    public void Setup(System.Action processQueue, Func<bool> isRunning)
+    {
+        this.processQueue = processQueue;
+        this.isRunning = isRunning;
+        
+        // Create pipe
+        int[] pipefd = new int[2];
+        if (pipe(pipefd) != 0)
+        {
+            throw new Exception("Failed to create pipe for event loop");
+        }
+        
+        pipeFdRead = pipefd[0];
+        pipeFdWrite = pipefd[1];
+        
+        logger.Debug("Pipe created: read={0}, write={1}", pipeFdRead, pipeFdWrite);
+        
+        // Monitor pipe with IOChannel - this integrates with GLib main loop
+        ioChannel = new GLib.IOChannel(pipeFdRead);
+        ioWatchId = ioChannel.AddWatch((int)GLib.Priority.Default, GLib.IOCondition.In, OnPipeReadable);
+        
+        logger.Debug("IOChannel watch added with ID={0}", ioWatchId);
+    }
+    
+    private bool OnPipeReadable(GLib.IOChannel channel, GLib.IOCondition condition)
+    {
+        logger.Debug("OnPipeReadable called");
+        
+        // Drain pipe
+        byte[] buffer = new byte[256];
+        while (true)
+        {
+            IntPtr result = read(pipeFdRead, buffer, (UIntPtr)buffer.Length);
+            if (result.ToInt32() <= 0)
+                break;
+        }
+        
+        // Process queue (will also be called in main loop, but doing it here is more responsive)
+        if (processQueue != null)
+            processQueue();
+        
+        if (isRunning != null)
+            return isRunning();
+        
+        return false;
+    }
+    
+    public void Wake()
+    {
+        if (pipeFdWrite != -1)
+        {
+            byte[] wakeByte = new byte[1] { 1 };
+            IntPtr result = write(pipeFdWrite, wakeByte, (UIntPtr)1);
+            logger.Debug("Wake signal sent, result={0}", result.ToInt32());
+        }
+    }
+    
+    public void Cleanup()
+    {
+        if (ioWatchId != 0)
+        {
+            GLib.Source.Remove(ioWatchId);
+            ioWatchId = 0;
+        }
+        
+        if (ioChannel != null)
+        {
+            ioChannel.Shutdown(false);
+            ioChannel = null;
+        }
+        
+        if (pipeFdRead != -1)
+        {
+            close(pipeFdRead);
+            pipeFdRead = -1;
+        }
+        
+        if (pipeFdWrite != -1)
+        {
+            close(pipeFdWrite);
+            pipeFdWrite = -1;
+        }
+        
+        logger.Debug("Wake mechanism cleaned up");
+    }
+}
+
+/// <summary>
+/// Windows implementation using Win32 events and GLib.Timeout polling
+/// </summary>
+class WindowsEventWake : IWakeMechanism
+{
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+    private ManualResetEvent? wakeEvent;
+    private uint timeoutId;
+    private System.Action? processQueue;
+    private Func<bool>? isRunning;
+    
+    public void Setup(System.Action processQueue, Func<bool> isRunning)
+    {
+        this.processQueue = processQueue;
+        this.isRunning = isRunning;
+        
+        wakeEvent = new ManualResetEvent(false);
+        
+        // Use GLib.Timeout to poll the event
+        // Check every 10ms for wake signal
+        timeoutId = GLib.Timeout.Add(10, OnTimeout);
+        
+        logger.Debug("Windows wake mechanism setup with 10ms polling");
+    }
+    
+    private bool OnTimeout()
+    {
+        // Check if we were signaled
+        if (wakeEvent?.WaitOne(0) == true)
+        {
+            wakeEvent?.Reset();
+            logger.Debug("Wake event triggered");
+            processQueue?.Invoke();
+        }
+        
+        if (isRunning != null)
+            return isRunning();
+        
+        return false;
+    }
+    
+    public void Wake()
+    {
+        if (wakeEvent != null)
+        {
+            wakeEvent.Set();
+            logger.Debug("Wake event set");
+        }
+    }
+    
+    public void Cleanup()
+    {
+        /*
+        if (timeoutId != 0)
+        {
+            GLib.Source.Remove(timeoutId);
+            timeoutId = 0;
+        }
+        */
+
+        if (wakeEvent != null)
+        {
+            wakeEvent.Dispose();
+            wakeEvent = null;
+        }
+        
+        logger.Debug("Wake mechanism cleaned up");
     }
 }
