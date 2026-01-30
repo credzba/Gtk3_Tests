@@ -21,7 +21,7 @@ public abstract class GtkWindowBase
         Environment.SetEnvironmentVariable("GTK_DEBUG", "interactive");
         Environment.SetEnvironmentVariable("G_MESSAGES_DEBUG", "all");
 
-        Gtk.Application.Init();
+        CustomMainLoop.Instance.Init();
 
         Builder builder = new Builder();
 
@@ -86,7 +86,7 @@ public abstract class GtkWindowBase
     public void Run()
     {
         window.ShowAll();
-        Gtk.Application.Run();
+        CustomMainLoop.Instance.Run();
 
         // Cleanup temp UI file if used
         if (tempUiPath != null && File.Exists(tempUiPath))
