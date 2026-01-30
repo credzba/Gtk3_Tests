@@ -3,25 +3,25 @@ RM=del /Q
 # Default target
 all: build
 
+# Restore NuGet packages
+restore:
+	dotnet restore $(SOLUTION)
+	@echo "NuGet restore complete."
+
 # Build Release
-build: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Release
+build: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Release
 	@echo "Build complete."
 
 # Build Debug
-debug: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Debug
+debug: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Debug
 	@echo "Debug build complete."
-
-# Embedded build (MSBuild handles resources via .csproj ItemGroup)
-embed: $(SRC) $(UI_FILES)
-	MSBuild.exe $(SOLUTION) -p:Configuration=Release -p:EmbedResources=true
-	@echo "Embedded build complete."
 
 # Clean
 clean:
-	MSBuild.exe $(SOLUTION) -t:Clean
+	dotnet clean $(SOLUTION)
 	$(RM) $(APP) *.pdb
 	@echo "Clean complete."
 
-.PHONY: all build debug clean
+.PHONY: all build debug clean restore
