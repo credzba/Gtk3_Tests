@@ -21,16 +21,16 @@ using NLog;
 public class CustomMainLoop
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private static CustomMainLoop? instance;
+    private static CustomMainLoop instance;
     private static readonly object instanceLock = new object();
     
     private readonly Queue<System.Action> invokeQueue;
     private readonly object queueLock;
     private volatile bool running;
-    
+
     // Platform-specific wake mechanism
-    private IWakeMechanism? wakeMechanism;
-    
+    private IWakeMechanism wakeMechanism;
+
     /// <summary>
     /// Get the singleton instance of CustomMainLoop
     /// </summary>
@@ -118,7 +118,8 @@ public class CustomMainLoop
         
         if (shouldWake)
         {
-            wakeMechanism?.Wake();
+            if (wakeMechanism != null)
+                wakeMechanism.Wake();
         }
     }
     
@@ -129,10 +130,11 @@ public class CustomMainLoop
     public void Run()
     {
         running = true;
-        
+
         // Setup wake mechanism
-        wakeMechanism?.Setup(ProcessInvokeQueue, () => running);
-        
+        if (wakeMechanism != null)
+            wakeMechanism.Setup(ProcessInvokeQueue, () => running);
+
         logger.Info("Starting custom main loop");
         
         // Our own main loop
@@ -140,13 +142,17 @@ public class CustomMainLoop
         {
             // Process GTK events (blocks, but wake mechanism can interrupt)
             bool hadEvents = GLib.MainContext.Iteration(true);
-            
+            if (hadEvents)
+                logger.Debug("GTK events processed");
+
             // Process our invoke queue
             ProcessInvokeQueue();
         }
         
         logger.Info("Main loop exited");
-        wakeMechanism?.Cleanup();
+
+        if (wakeMechanism != null)
+            wakeMechanism.Cleanup();
     }
 
     /// <summary>
@@ -158,7 +164,8 @@ public class CustomMainLoop
         logger.Info("Quit requested");
         running = false;
         // Wake the main loop so it can exit
-        wakeMechanism?.Wake();
+        if (wakeMechanism != null)
+            wakeMechanism.Wake();
     }
     
     /// <summary>
@@ -166,8 +173,8 @@ public class CustomMainLoop
     /// </summary>
     private void ProcessInvokeQueue()
     {
-        System.Action[]? actions = null;
-        
+        System.Action[] actions = null;
+
         lock (queueLock)
         {
             if (invokeQueue.Count > 0)
@@ -228,11 +235,11 @@ class UnixPipeWake : IWakeMechanism
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     private int pipeFdRead = -1;
     private int pipeFdWrite = -1;
-    private GLib.IOChannel? ioChannel;
+    private GLib.IOChannel ioChannel;
     private uint ioWatchId;
-    private System.Action? processQueue;
-    private Func<bool>? isRunning;
-    
+    private System.Action processQueue;
+    private Func<bool> isRunning;
+
     [DllImport("libc")]
     private static extern int pipe(int[] pipefd);
     
@@ -268,32 +275,37 @@ class UnixPipeWake : IWakeMechanism
         
         logger.Debug("IOChannel watch added with ID={0}", ioWatchId);
     }
-    
+
+    /// <summary>
+    /// Callback fired by GLib when the pipe becomes readable (wake signal received).
+    /// This integrates our custom invoke queue into GLib's event loop.
+    /// 
+    /// CRITICAL: Must read exactly ONE byte per callback to avoid race conditions.
+    /// If we drain multiple bytes at once, we can consume future wake signals before
+    /// GLib processes them, causing the event loop to stop waking up for new invokes.
+    /// 
+    /// The pattern: 1 wake byte written → 1 callback fired → 1 queue processing cycle
+    /// </summary>
+    /// <returns>True to keep the watch active, false to remove it</returns>
     private bool OnPipeReadable(GLib.IOChannel channel, GLib.IOCondition condition)
     {
         logger.Debug("OnPipeReadable called");
-        
-        // Drain pipe
-        byte[] buffer = new byte[256];
-        while (true)
-        {
-            IntPtr result = read(pipeFdRead, buffer, (UIntPtr)buffer.Length);
-            if (result.ToInt32() <= 0)
-                break;
-        }
-        
-        // Process queue (will also be called in main loop, but doing it here is more responsive)
-        if (processQueue != null)
-            processQueue();
-        
+
+        // Drain pipe - read only ONE byte per callback
+        byte[] buffer = new byte[1];
+        IntPtr result = read(pipeFdRead, buffer, (UIntPtr)1);
+        logger.Debug("Drained {0} byte(s) from pipe", result.ToInt32());
+
         if (isRunning != null)
             return isRunning();
-        
+
         return false;
     }
     
     public void Wake()
     {
+        logger.Debug("Wake called from: {0}", new System.Diagnostics.StackTrace(true));
+
         if (pipeFdWrite != -1)
         {
             byte[] wakeByte = new byte[1] { 1 };
@@ -338,11 +350,11 @@ class UnixPipeWake : IWakeMechanism
 class WindowsEventWake : IWakeMechanism
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    private ManualResetEvent? wakeEvent;
+    private ManualResetEvent wakeEvent;
     private uint timeoutId;
-    private System.Action? processQueue;
-    private Func<bool>? isRunning;
-    
+    private System.Action processQueue;
+    private Func<bool> isRunning;
+
     public void Setup(System.Action processQueue, Func<bool> isRunning)
     {
         this.processQueue = processQueue;
@@ -360,11 +372,13 @@ class WindowsEventWake : IWakeMechanism
     private bool OnTimeout()
     {
         // Check if we were signaled
-        if (wakeEvent?.WaitOne(0) == true)
+        if (wakeEvent != null && wakeEvent.WaitOne(0))
         {
-            wakeEvent?.Reset();
+            wakeEvent.Reset();
             logger.Debug("Wake event triggered");
-            processQueue?.Invoke();
+
+            if (processQueue != null)
+                processQueue();
         }
         
         if (isRunning != null)
@@ -384,13 +398,18 @@ class WindowsEventWake : IWakeMechanism
     
     public void Cleanup()
     {
-        /*
         if (timeoutId != 0)
         {
-            GLib.Source.Remove(timeoutId);
+            try
+            {
+                GLib.Source.Remove(timeoutId);
+            }
+            catch
+            {
+                // Already removed when OnTimeout returned false
+            }
             timeoutId = 0;
         }
-        */
 
         if (wakeEvent != null)
         {
