@@ -5,7 +5,8 @@
     <TargetFramework>net47</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>10.0</LangVersion>
-    <Nullable>enable</Nullable>
+    <!-- Disabled for compatibility with mcs on Linux -->
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
