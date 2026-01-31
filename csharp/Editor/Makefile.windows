@@ -1,0 +1,27 @@
+RM=del /Q
+
+# Default target
+all: build
+
+# Restore NuGet packages
+restore:
+	dotnet restore $(SOLUTION)
+	@echo "NuGet restore complete."
+
+# Build Release
+build: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Release
+	@echo "Build complete."
+
+# Build Debug
+debug: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Debug
+	@echo "Debug build complete."
+
+# Clean
+clean:
+	dotnet clean $(SOLUTION)
+	$(RM) $(APP) *.pdb
+	@echo "Clean complete."
+
+.PHONY: all build debug clean restore

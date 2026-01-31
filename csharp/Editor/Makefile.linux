@@ -1,0 +1,44 @@
+RM=rm -f
+NLOG_PATH = /home/credzba/.nuget/packages/nlog/6.0.7/lib/netstandard2.0/NLog.dll
+GTKSHARP_PATH = $(HOME)/.nuget/packages/gtksharp/3.24.24.95/lib/netstandard2.0/GtkSharp.dll
+GTKSOURCE_PATH = $(HOME)/.nuget/packages/gtksourcesharp/3.24.24.95/lib/netstandard2.0/GtkSourceSharp.dll
+GLIBSHARP_PATH = $(HOME)/.nuget/packages/glibsharp/3.24.24.95/lib/netstandard2.0/GLibSharp.dll
+ATKSHARP_PATH = $(HOME)/.nuget/packages/atksharp/3.24.24.95/lib/netstandard2.0/AtkSharp.dll
+GDKSHARP_PATH = $(HOME)/.nuget/packages/gdksharp/3.24.24.95/lib/netstandard2.0/GdkSharp.dll
+GIOSHARP_PATH = $(HOME)/.nuget/packages/giosharp/3.24.24.95/lib/netstandard2.0/GioSharp.dll
+CAIROSHARP_PATH = $(HOME)/.nuget/packages/cairosharp/3.24.24.95/lib/netstandard2.0/CairoSharp.dll
+PANGOSHARP_PATH = $(HOME)/.nuget/packages/pangosharp/3.24.24.95/lib/netstandard2.0/PangoSharp.dll
+NETSTANDARD_PATH = /usr/lib/mono/4.5/Facades/netstandard.dll
+REFERENCES = -r:$(NETSTANDARD_PATH) -r:$(NLOG_PATH) -r:$(GLIBSHARP_PATH) -r:$(GIOSHARP_PATH) -r:$(ATKSHARP_PATH) -r:$(GDKSHARP_PATH) -r:$(CAIROSHARP_PATH) -r:$(PANGOSHARP_PATH) -r:$(GTKSHARP_PATH) -r:$(GTKSOURCE_PATH)
+
+# Default target
+all: build
+
+# Build Debug
+debug: $(SRC) $(UI_FILES) copyLibs
+	mcs -debug -sdk:4.5 $(REFERENCES) -out:$(APP) $(SRC)
+	@echo "Debug build complete."
+
+build: $(SRC) $(UI_FILES) copyLibs
+	mcs -sdk:4.5 $(REFERENCES) -out:$(APP) $(SRC)
+	@echo "Embedded build complete."
+
+# Debug run (Linux only)
+debug-run: debug
+	@echo "DEBUGGER_READY"
+	@mono --debug --debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:55555,suspend=y $(APP)
+
+# Copy library files to local directory
+copyLibs:
+	rsync -a $(NLOG_PATH) $(GLIBSHARP_PATH) $(ATKSHARP_PATH) $(GIOSHARP_PATH) $(GDKSHARP_PATH) $(CAIROSHARP_PATH) $(PANGOSHARP_PATH) $(GTKSHARP_PATH) $(GTKSOURCE_PATH) .
+
+# Restore NuGet packages (only needed once or when packages change)
+restore:
+	dotnet restore
+	@echo "NuGet restore complete."
+
+# Clean
+clean:
+	$(RM) $(APP) *.mdb
+	@echo "Clean complete."
+
