@@ -237,7 +237,6 @@ class UnixPipeWake : IWakeMechanism
     private int pipeFdWrite = -1;
     private GLib.IOChannel ioChannel;
     private uint ioWatchId;
-    private System.Action processQueue;
     private Func<bool> isRunning;
 
     [DllImport("libc")]
@@ -254,7 +253,6 @@ class UnixPipeWake : IWakeMechanism
     
     public void Setup(System.Action processQueue, Func<bool> isRunning)
     {
-        this.processQueue = processQueue;
         this.isRunning = isRunning;
         
         // Create pipe
