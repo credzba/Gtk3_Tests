@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net47</TargetFramework>
+    <AssemblyName>ShardManager</AssemblyName>
+    <RootNamespace>ShardManager</RootNamespace>
+    <LangVersion>10.0</LangVersion>
+    <!-- Disabled for compatibility with mcs on Linux -->
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GtkSharp" Version="3.24.24.95" />
+    <PackageReference Include="NLog" Version="6.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Embed .ui files as resources (fallback if external file missing) -->
+    <EmbeddedResource Include="*.ui" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Also copy .ui files alongside the exe -->
+    <Content Include="ShardSelector.ui">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <!-- Copy NLog config files -->
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.*.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <!-- Copy shards file for development convenience -->
+    <Content Include="UO_Copilot.shards">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

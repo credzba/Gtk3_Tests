@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ShardManager": {
+      "commandName": "Project",
+      "commandLineArgs": "/c/Users/Credz/Projects/Gtk3_Tests/csharp/ShardManager/UO_Copilot.shards"
+    }
+  }
+}

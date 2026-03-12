@@ -1,0 +1,32 @@
+RM=rm -f
+NLOG_PATH = $(HOME)/.nuget/packages/nlog/6.0.7/lib/netstandard2.0/NLog.dll
+NEWTONSOFT_PATH = $(HOME)/.nuget/packages/newtonsoft.json/13.0.3/lib/netstandard2.0/Newtonsoft.Json.dll
+NETSTANDARD_PATH = /usr/lib/mono/4.5/Facades/netstandard.dll
+REFERENCES = -r:$(NETSTANDARD_PATH) -r:$(NLOG_PATH) -r:$(NEWTONSOFT_PATH)
+
+# Default target
+all: build
+
+# Build Debug
+debug: $(SRC) $(UI_FILES)
+	cp $(NLOG_PATH) .
+	cp $(NEWTONSOFT_PATH) .
+	mcs -debug -sdk:4.5 -pkg:gtk-sharp-3.0 $(REFERENCES) -out:$(APP) $(SRC)
+	@echo "Debug build complete."
+
+# Build (UI files embedded as resources for fallback if .ui is missing)
+build: $(SRC) $(UI_FILES)
+	cp $(NLOG_PATH) .
+	cp $(NEWTONSOFT_PATH) .
+	mcs -sdk:4.5 -pkg:gtk-sharp-3.0 $(REFERENCES) $(RESOURCES) -out:$(APP) $(SRC)
+	@echo "Embedded build complete."
+
+# Debug run (Linux only)
+debug-run: debug
+	@echo "DEBUGGER_READY"
+	@mono --debug --debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:55555,suspend=y $(APP)
+
+# Clean
+clean:
+	$(RM) $(APP) *.mdb NLog.dll Newtonsoft.Json.dll
+	@echo "Clean complete."

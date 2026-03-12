@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="main_window">
+    <property name="can-focus">False</property>
+    <property name="title">uo-copilot</property>
+    <property name="resizable">False</property>
+    <property name="window-position">center</property>
+    <property name="default-width">490</property>
+    <property name="default-height">280</property>
+    <signal name="destroy" handler="OnDestroy" swapped="no"/>
+    <child>
+      <object class="GtkBox" id="mainVBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <property name="margin">10</property>
+
+        <!-- ── Shard Selection Frame ── -->
+        <child>
+          <object class="GtkFrame" id="shardSelFrame">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label">Shard Selection</property>
+            <child>
+              <object class="GtkBox" id="shardSelBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">6</property>
+                <property name="margin">6</property>
+                <child>
+                  <object class="GtkLabel" id="shardLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label">Shard:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="shardCombo">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="hexpand">True</property>
+                    <signal name="changed" handler="OnShardComboChanged" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="addButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label">Add</property>
+                    <signal name="clicked" handler="OnAddClicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="removeButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label">Remove</property>
+                    <signal name="clicked" handler="OnRemoveClicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+
+        <!-- ── Shard Config Frame ── -->
+        <child>
+          <object class="GtkFrame" id="shardConfigFrame">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label">Shard Config</property>
+            <child>
+              <object class="GtkBox" id="configVBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+
+                <!-- Client Location row -->
+                <child>
+                  <object class="GtkBox" id="clientLocationRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="clientLocationPickerBtn">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="relief">none</property>
+                        <property name="tooltip-text">Browse for client.exe</property>
+                        <signal name="clicked" handler="OnClientLocationPickerClicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">media-floppy</property>
+                            <property name="icon-size">1</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="clientLocationTitleLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Client Location:</property>
+                        <property name="width-chars">16</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="clientLocationLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label"></property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+
+                <!-- UO Folder row -->
+                <child>
+                  <object class="GtkBox" id="uoFolderRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="uoFolderPickerBtn">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="relief">none</property>
+                        <property name="tooltip-text">Browse for UO folder</property>
+                        <signal name="clicked" handler="OnUoFolderPickerClicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">media-floppy</property>
+                            <property name="icon-size">1</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="uoFolderTitleLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">UO Folder:</property>
+                        <property name="width-chars">16</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="uoFolderLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label"></property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+
+                <!-- CUO Client row -->
+                <child>
+                  <object class="GtkBox" id="cuoClientRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="cuoClientPickerBtn">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="relief">none</property>
+                        <property name="tooltip-text">Browse for CUO.exe or ClassicUO.exe</property>
+                        <signal name="clicked" handler="OnCuoClientPickerClicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">media-floppy</property>
+                            <property name="icon-size">1</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="cuoClientTitleLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">CUO Client:</property>
+                        <property name="width-chars">16</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="cuoClientLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label"></property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+
+                <!-- Server Address + Port row -->
+                <child>
+                  <object class="GtkBox" id="serverRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkLabel" id="serverAddressLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Server Address:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="serverAddressEntry">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="hexpand">True</property>
+                        <signal name="changed" handler="OnServerAddressChanged" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="portLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Port:</property>
+                        <property name="xalign">0</property>
+                        <property name="margin-left">6</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="portEntry">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="width-chars">6</property>
+                        <property name="max-length">5</property>
+                        <signal name="changed" handler="OnPortChanged" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+
+                <!-- Checkboxes row -->
+                <child>
+                  <object class="GtkBox" id="checkRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">16</property>
+                    <child>
+                      <object class="GtkCheckButton" id="patchEncCheck">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Patch client encryption</property>
+                        <signal name="toggled" handler="OnPatchEncToggled" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="osiEncCheck">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label">Use OSI Encryption</property>
+                        <signal name="toggled" handler="OnOsiEncToggled" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+
+        <!-- ── Bottom Buttons ── -->
+        <child>
+          <object class="GtkBox" id="buttonRow">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">6</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkButton" id="launchButton">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label">Launch</property>
+                <signal name="clicked" handler="OnLaunchClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="launchCuoButton">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label">Launch CUO</property>
+                <signal name="clicked" handler="OnLaunchCuoClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="checkUpdateButton">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label">Check Update</property>
+                <signal name="clicked" handler="OnCheckUpdateClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="exitButton">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label">Exit</property>
+                <signal name="clicked" handler="OnExitClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+
+      </object>
+    </child>
+  </object>
+</interface>
