@@ -2,12 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net47</TargetFramework>
     <AssemblyName>ShardManager</AssemblyName>
     <RootNamespace>ShardManager</RootNamespace>
-    <LangVersion>10.0</LangVersion>
-    <!-- Disabled for compatibility with mcs on Linux -->
     <Nullable>disable</Nullable>
+    <!-- No framework subfolder: bin/Debug or bin/Release on both platforms -->
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <!-- Windows: .NET Framework 4.7 via msbuild -->
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <TargetFramework>net47</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Linux/macOS: .NET 10 via dotnet -->
+  <PropertyGroup Condition="!$([MSBuild]::IsOSPlatform('Windows'))">
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,24 +28,26 @@
 
   <ItemGroup>
     <!-- Embed .ui files as resources (fallback if external file missing) -->
-    <EmbeddedResource Include="*.ui" />
+    <EmbeddedResource Include="deployment/ShardSelector.ui">
+      <LogicalName>ShardManager.ShardSelector.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Also copy .ui files alongside the exe -->
-    <Content Include="ShardSelector.ui">
+    <!-- Copy all deployment files alongside the exe, flat into output dir -->
+    <Content Include="deployment/ShardSelector.ui">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>ShardSelector.ui</TargetPath>
     </Content>
-    <!-- Copy NLog config files -->
-    <Content Include="NLog.config">
+    <!-- Copy NLog config files from deployment/ -->
+    <Content Include="deployment/NLog.config;deployment/NLog.*.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
     </Content>
-    <Content Include="NLog.*.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <!-- Copy shards file for development convenience -->
-    <Content Include="UO_Copilot.shards">
+    <!-- Copy shards file for development convenience (preserve if already present) -->
+    <Content Include="deployment/UO_Copilot.shards">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>UO_Copilot.shards</TargetPath>
     </Content>
   </ItemGroup>
 

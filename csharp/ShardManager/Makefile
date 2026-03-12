@@ -2,12 +2,12 @@
 
 APP=ShardManager.exe
 SOLUTION=ShardManager.sln
-RESOURCES=$(foreach ui,$(UI_FILES),-resource:$(ui),ShardManager.$(ui))
 
-# All C# source files
-SRC=$(wildcard *.cs)
-# All UI files
-UI_FILES=$(wildcard *.ui)
+
+# All C# source files under src/
+SRC=$(wildcard src/*.cs) $(wildcard src/Config/*.cs) $(wildcard src/UI/*.cs)
+# All UI files under src/UI/
+UI_FILES=$(wildcard src/UI/*.ui)
 
 # Detect OS and include platform-specific makefile
 ifeq ($(OS),Windows_NT)

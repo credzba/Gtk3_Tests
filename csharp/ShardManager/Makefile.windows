@@ -1,27 +1,29 @@
-RM=rm -f
+RM=del /f /q
+
+DEBUG_DIR   = bin\Debug
+RELEASE_DIR = bin\Release
 
 # Default target
 all: build
 
 # Restore NuGet packages
 restore:
-	dotnet restore $(SOLUTION)
+	msbuild $(SOLUTION) /t:Restore /v:minimal
 	@echo "NuGet restore complete."
 
 # Build Release
 build: restore $(SRC) $(UI_FILES)
-	dotnet build $(SOLUTION) -c Release
-	@echo "Build complete."
+	msbuild $(SOLUTION) /p:Configuration=Release /v:minimal
+	@echo "Build complete: $(RELEASE_DIR)\$(APP)"
 
 # Build Debug
 debug: restore $(SRC) $(UI_FILES)
-	dotnet build $(SOLUTION) -c Debug
-	@echo "Debug build complete."
+	msbuild $(SOLUTION) /p:Configuration=Debug /v:minimal
+	@echo "Debug build complete: $(DEBUG_DIR)\$(APP)"
 
 # Clean
 clean:
-	dotnet clean $(SOLUTION)
-	$(RM) $(APP) *.pdb
+	msbuild $(SOLUTION) /t:Clean /v:minimal
 	@echo "Clean complete."
 
 .PHONY: all build debug clean restore

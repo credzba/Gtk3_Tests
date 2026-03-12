@@ -1,32 +1,40 @@
 RM=rm -f
-NLOG_PATH = $(HOME)/.nuget/packages/nlog/6.0.7/lib/netstandard2.0/NLog.dll
-NEWTONSOFT_PATH = $(HOME)/.nuget/packages/newtonsoft.json/13.0.3/lib/netstandard2.0/Newtonsoft.Json.dll
-NETSTANDARD_PATH = /usr/lib/mono/4.5/Facades/netstandard.dll
-REFERENCES = -r:$(NETSTANDARD_PATH) -r:$(NLOG_PATH) -r:$(NEWTONSOFT_PATH)
+
+DEBUG_DIR   = bin/Debug
+RELEASE_DIR = bin/Release
+
+# Native ELF launcher produced by dotnet apphost (no .exe suffix on Linux)
+LAUNCHER_NAME = $(basename $(APP))
+DEBUG_BIN     = $(DEBUG_DIR)/$(LAUNCHER_NAME)
+RELEASE_BIN   = $(RELEASE_DIR)/$(LAUNCHER_NAME)
 
 # Default target
 all: build
 
+# Restore NuGet packages
+restore:
+	dotnet restore $(SOLUTION)
+	@echo "NuGet restore complete."
+
 # Build Debug
-debug: $(SRC) $(UI_FILES)
-	cp $(NLOG_PATH) .
-	cp $(NEWTONSOFT_PATH) .
-	mcs -debug -sdk:4.5 -pkg:gtk-sharp-3.0 $(REFERENCES) -out:$(APP) $(SRC)
-	@echo "Debug build complete."
+debug: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Debug
+	@echo "Debug build complete: $(DEBUG_BIN)"
 
-# Build (UI files embedded as resources for fallback if .ui is missing)
-build: $(SRC) $(UI_FILES)
-	cp $(NLOG_PATH) .
-	cp $(NEWTONSOFT_PATH) .
-	mcs -sdk:4.5 -pkg:gtk-sharp-3.0 $(REFERENCES) $(RESOURCES) -out:$(APP) $(SRC)
-	@echo "Embedded build complete."
+# Build Release
+build: restore $(SRC) $(UI_FILES)
+	dotnet build $(SOLUTION) -c Release
+	@echo "Release build complete: $(RELEASE_BIN)"
 
-# Debug run (Linux only)
+# Debug run — attach VS Code / vsdbg after launch
 debug-run: debug
 	@echo "DEBUGGER_READY"
-	@mono --debug --debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:55555,suspend=y $(APP)
+	DOTNET_ENVIRONMENT=Development $(DEBUG_BIN)
 
 # Clean
 clean:
-	$(RM) $(APP) *.mdb NLog.dll Newtonsoft.Json.dll
+	dotnet clean $(SOLUTION)
+	$(RM) -r $(DEBUG_DIR) $(RELEASE_DIR)
 	@echo "Clean complete."
+
+.PHONY: all build debug debug-run clean restore
