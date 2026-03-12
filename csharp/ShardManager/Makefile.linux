@@ -1,7 +1,7 @@
 RM=rm -f
 
-DEBUG_DIR   = bin/Debug
-RELEASE_DIR = bin/Release
+DEBUG_DIR   = ShardManager/bin/Debug
+RELEASE_DIR = ShardManager/bin/Release
 
 # Native ELF launcher produced by dotnet apphost (no .exe suffix on Linux)
 LAUNCHER_NAME = $(basename $(APP))

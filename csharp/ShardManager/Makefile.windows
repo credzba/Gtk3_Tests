@@ -1,7 +1,7 @@
 RM=del /f /q
 
-DEBUG_DIR   = bin\Debug
-RELEASE_DIR = bin\Release
+DEBUG_DIR   = ShardManager\bin\Debug
+RELEASE_DIR = ShardManager\bin\Release
 
 # Default target
 all: build
