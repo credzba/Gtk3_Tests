@@ -1,4 +1,5 @@
-RM=del /f /q
+RM=rm -f
+MSBUILD = "/c/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MSBuild.exe"
 
 DEBUG_DIR   = ShardManager\bin\Debug
 RELEASE_DIR = ShardManager\bin\Release
@@ -8,22 +9,26 @@ all: build
 
 # Restore NuGet packages
 restore:
-	msbuild $(SOLUTION) /t:Restore /v:minimal
+	$(MSBUILD) $(SOLUTION) -t:Restore -v:minimal
 	@echo "NuGet restore complete."
 
 # Build Release
 build: restore $(SRC) $(UI_FILES)
-	msbuild $(SOLUTION) /p:Configuration=Release /v:minimal
+	$(MSBUILD) $(SOLUTION) -p:Configuration=Release -v:minimal
 	@echo "Build complete: $(RELEASE_DIR)\$(APP)"
+	@echo "Unix path: $$(cygpath -u '$(RELEASE_DIR)\$(APP)')"
+
 
 # Build Debug
 debug: restore $(SRC) $(UI_FILES)
-	msbuild $(SOLUTION) /p:Configuration=Debug /v:minimal
+	$(MSBUILD) $(SOLUTION) -p:Configuration=Debug -v:minimal
 	@echo "Debug build complete: $(DEBUG_DIR)\$(APP)"
+	@echo "Unix path: $$(cygpath -u '$(DEBUG_DIR)\$(APP)')"
+
 
 # Clean
 clean:
-	msbuild $(SOLUTION) /t:Clean /v:minimal
+	$(MSBUILD) $(SOLUTION) -t:Clean -v:minimal
 	@echo "Clean complete."
 
 .PHONY: all build debug clean restore

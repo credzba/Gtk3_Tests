@@ -22,8 +22,8 @@ public class Program
         string shardsFile = FindShardsFile(args);
         if (shardsFile == null)
         {
-            Console.Error.WriteLine("Could not locate UO_Copilot.shards.");
-            Console.Error.WriteLine("Usage: ShardManager [path/to/UO_Copilot.shards]");
+            Console.Error.WriteLine("Could not locate Server.shards.");
+            Console.Error.WriteLine("Usage: ShardManager [path/to/Server.shards]");
             Environment.Exit(1);
         }
 
@@ -44,16 +44,16 @@ public class Program
 
         // 2. Next to the executable
         string exeDir = AppDomain.CurrentDomain.BaseDirectory;
-        string candidate = Path.Combine(exeDir, "UO_Copilot.shards");
+        string candidate = Path.Combine(exeDir, "Server.shards");
         if (File.Exists(candidate)) return candidate;
 
         // 3. Current working directory
-        if (File.Exists("UO_Copilot.shards"))
-            return Path.GetFullPath("UO_Copilot.shards");
+        if (File.Exists("Server.shards"))
+            return Path.GetFullPath("Server.shards");
 
         // 4. User home directory
         string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        candidate = Path.Combine(home, "UO_Copilot.shards");
+        candidate = Path.Combine(home, "Server.shards");
         if (File.Exists(candidate)) return candidate;
 
         return null;

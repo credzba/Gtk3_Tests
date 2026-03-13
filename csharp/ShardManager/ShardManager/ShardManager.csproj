@@ -45,9 +45,9 @@
       <TargetPath>%(Filename)%(Extension)</TargetPath>
     </Content>
     <!-- Copy shards file for development convenience (preserve if already present) -->
-    <Content Include="deployment/UO_Copilot.shards">
+    <Content Include="deployment/Server.shards">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>UO_Copilot.shards</TargetPath>
+      <TargetPath>Server.shards</TargetPath>
     </Content>
   </ItemGroup>
 

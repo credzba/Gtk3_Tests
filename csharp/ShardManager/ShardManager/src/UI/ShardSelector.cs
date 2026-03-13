@@ -13,8 +13,6 @@ namespace UI
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         // Data
-        private ShardsFile shardsFile;
-        private string shardsFilePath;
         private bool suppressChangeEvents = false;
 
         // Widget references
@@ -27,11 +25,10 @@ namespace UI
         private CheckButton patchEncCheck;
         private CheckButton osiEncCheck;
 
-        public ShardSelector(string shardsFilePath)
+        public ShardSelector(string serverConfigPath)
             : base("ShardSelector.ui", "ShardManager.ShardSelector.ui")
         {
-            this.shardsFilePath = shardsFilePath;
-            shardsFile = ShardsFile.Load(shardsFilePath);
+            ServerConfig.Load(serverConfigPath);
 
             // Populate shard combo and display initial selection
             PopulateShardCombo();
@@ -84,20 +81,20 @@ namespace UI
         {
             suppressChangeEvents = true;
             shardCombo.RemoveAll();
-            foreach (string name in shardsFile.Shards.Keys)
+            foreach (string name in ServerConfig.Instance.Servers.Keys)
                 shardCombo.AppendText(name);
             suppressChangeEvents = false;
         }
 
         private void SelectInitialShard()
         {
-            // Prefer SelectedShard key, fall back to Selected flag, then first entry
+            // Prefer SelectedServer key, fall back to Selected flag, then first entry
             int idx = 0, i = 0;
-            foreach (var kvp in shardsFile.Shards)
+            foreach (var kvp in ServerConfig.Instance.Servers)
             {
-                if (!string.IsNullOrEmpty(shardsFile.SelectedShard))
+                if (!string.IsNullOrEmpty(ServerConfig.Instance.SelectedServer))
                 {
-                    if (kvp.Key == shardsFile.SelectedShard) { idx = i; break; }
+                    if (kvp.Key == ServerConfig.Instance.SelectedServer) { idx = i; break; }
                 }
                 else if (kvp.Value.Selected) { idx = i; break; }
                 i++;
@@ -110,20 +107,20 @@ namespace UI
 
         private string CurrentShardName() => shardCombo.ActiveText;
 
-        private ShardEntry CurrentShard()
+        private ServerEntry CurrentShard()
         {
             string name = CurrentShardName();
             if (name == null) return null;
-            ShardEntry entry;
-            shardsFile.Shards.TryGetValue(name, out entry);
+            ServerEntry entry;
+            ServerConfig.Instance.Servers.TryGetValue(name, out entry);
             return entry;
         }
 
         private void LoadShardIntoUI(string shardName)
         {
             if (shardName == null) return;
-            ShardEntry entry;
-            if (!shardsFile.Shards.TryGetValue(shardName, out entry)) return;
+            ServerEntry entry;
+            if (!ServerConfig.Instance.Servers.TryGetValue(shardName, out entry)) return;
 
             suppressChangeEvents = true;
             clientLocationLabel.Text = entry.ClientPath   ?? "";
@@ -142,50 +139,50 @@ namespace UI
         {
             if (suppressChangeEvents) return;
             string name = CurrentShardName();
-            logger.Debug("Shard changed to: {0}", name);
-            shardsFile.SelectedShard = name ?? "";
-            shardsFile.Save(shardsFilePath);
+            logger.Debug("Server changed to: {0}", name);
+            ServerConfig.Instance.SelectedServer = name ?? "";
+            ServerConfig.Instance.Save();
             LoadShardIntoUI(name);
         }
 
         private void OnServerAddressChanged(object sender, EventArgs e)
         {
             if (suppressChangeEvents) return;
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             if (entry == null) return;
             entry.Host = serverAddressEntry.Text;
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnPortChanged(object sender, EventArgs e)
         {
             if (suppressChangeEvents) return;
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             if (entry == null) return;
             int port;
             if (int.TryParse(portEntry.Text, out port))
             {
                 entry.Port = port;
-                shardsFile.Save(shardsFilePath);
+                ServerConfig.Instance.Save();
             }
         }
 
         private void OnPatchEncToggled(object sender, EventArgs e)
         {
             if (suppressChangeEvents) return;
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             if (entry == null) return;
             entry.PatchEnc = patchEncCheck.Active;
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnOsiEncToggled(object sender, EventArgs e)
         {
             if (suppressChangeEvents) return;
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             if (entry == null) return;
             entry.OSIEnc = osiEncCheck.Active;
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnClientLocationPickerClicked(object sender, EventArgs e)
@@ -199,7 +196,7 @@ namespace UI
 
             if (chosen == null) return;
 
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             entry.ClientPath = chosen;
             clientLocationLabel.Text = chosen;
 
@@ -212,7 +209,7 @@ namespace UI
                 uoFolderLabel.Text = dir;
             }
 
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnUoFolderPickerClicked(object sender, EventArgs e)
@@ -230,10 +227,10 @@ namespace UI
 
             if (chosen == null) return;
 
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             entry.ClientFolder = chosen;
             uoFolderLabel.Text = chosen;
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnCuoClientPickerClicked(object sender, EventArgs e)
@@ -247,24 +244,24 @@ namespace UI
 
             if (chosen == null) return;
 
-            ShardEntry entry = CurrentShard();
+            ServerEntry entry = CurrentShard();
             entry.CUOClient = chosen;
             cuoClientLabel.Text = chosen;
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
         }
 
         private void OnAddClicked(object sender, EventArgs e)
         {
-            string newName = RunInputDialog("Add Shard", "Enter new shard name:");
+            string newName = RunInputDialog("Add Server", "Enter new server name:");
             if (string.IsNullOrWhiteSpace(newName)) return;
 
-            if (shardsFile.Shards.ContainsKey(newName))
+            if (ServerConfig.Instance.Servers.ContainsKey(newName))
             {
-                ShowMessage(MessageType.Warning, $"A shard named '{newName}' already exists.");
+                ShowMessage(MessageType.Warning, $"A server named '{newName}' already exists.");
                 return;
             }
 
-            shardsFile.Shards[newName] = new ShardEntry
+            ServerConfig.Instance.Servers[newName] = new ServerEntry
             {
                 Description     = newName,
                 ClientPath      = "",
@@ -277,12 +274,12 @@ namespace UI
                 Selected        = false,
                 StartClientType = 0
             };
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Save();
 
             PopulateShardCombo();
 
             int idx = 0;
-            foreach (string k in shardsFile.Shards.Keys)
+            foreach (string k in ServerConfig.Instance.Servers.Keys)
             {
                 if (k == newName) break;
                 idx++;
@@ -299,14 +296,14 @@ namespace UI
             if (name == null) return;
 
             var confirm = new MessageDialog(window, DialogFlags.Modal, MessageType.Question,
-                ButtonsType.YesNo, $"Remove shard '{name}'?");
+                ButtonsType.YesNo, $"Remove server '{name}'?");
             confirm.Title = "Confirm Remove";
             var resp = (ResponseType)confirm.Run();
             confirm.Destroy();
             if (resp != ResponseType.Yes) return;
 
-            shardsFile.Shards.Remove(name);
-            shardsFile.Save(shardsFilePath);
+            ServerConfig.Instance.Servers.Remove(name);
+            ServerConfig.Instance.Save();
             PopulateShardCombo();
 
             if (shardCombo.Model.IterNChildren() > 0)

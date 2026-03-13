@@ -1,8 +1,8 @@
 {
-  "AllowBeta": false,
+  "AutoLogin": false,
   "ShowLauncher": true,
-  "SelectedShard": "eventine_no_trees",
-  "Shards": {
+  "SelectedServer": "eventine_no_trees",
+  "Servers": {
     "OSI Ultima Online": {
       "Description": "OSI Ultima Online",
       "ClientPath": "C:\\Ultima Online Classic\\client.exe",
@@ -13,7 +13,9 @@
       "PatchEnc": true,
       "OSIEnc": true,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "uoforever": {
       "Description": "uoforever",
@@ -25,7 +27,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "excelsior": {
       "Description": "excelsior",
@@ -37,7 +41,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "uogamers_demise": {
       "Description": "uogamers_demise",
@@ -49,7 +55,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "akara_essex": {
       "Description": "akara_essex",
@@ -61,7 +69,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "quingis": {
       "Description": "quingis",
@@ -73,7 +83,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "trueuo": {
       "Description": "trueuo",
@@ -85,7 +97,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "evertine": {
       "Description": "evertine",
@@ -97,7 +111,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "pandora": {
       "Description": "pandora",
@@ -109,7 +125,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "eventine_no_trees": {
       "Description": "eventine_no_trees",
@@ -121,7 +139,29 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": true,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "myaccount",
+      "Logins": [
+        {
+          "Username": "myaccount",
+          "Password": "",
+          "Shards": [
+            {
+              "Name": "Atlantic",
+              "Characters": [
+                {
+                  "Name": "MyWarrior",
+                  "Profile": "warrior.xml"
+                },
+                {
+                  "Name": "MyMage",
+                  "Profile": "mage.xml"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "lost_city": {
       "Description": "lost_city",
@@ -133,7 +173,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "doomsday": {
       "Description": "doomsday",
@@ -145,7 +187,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "wolfsbane": {
       "Description": "wolfsbane",
@@ -157,7 +201,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "localhost": {
       "Description": "localhost",
@@ -169,7 +215,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "darkforest": {
       "Description": "darkforest",
@@ -181,7 +229,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "test": {
       "Description": "test",
@@ -193,7 +243,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "new akara": {
       "Description": "new akara",
@@ -205,7 +257,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "outlands": {
       "Description": "outlands",
@@ -217,7 +271,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "forbidden lands": {
       "Description": "forbidden lands",
@@ -229,7 +285,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "demise": {
       "Description": "demise",
@@ -241,7 +299,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "uo alive": {
       "Description": "uo alive",
@@ -253,7 +313,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "adventure": {
       "Description": "adventure",
@@ -265,7 +327,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "los": {
       "Description": "los",
@@ -277,7 +341,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "uodreams": {
       "Description": "uodreams",
@@ -289,7 +355,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "immortal realms": {
       "Description": "immortal realms",
@@ -301,7 +369,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "mysterious world": {
       "Description": "mysterious world",
@@ -313,7 +383,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "classic dungeon": {
       "Description": "classic dungeon",
@@ -325,7 +397,9 @@
       "PatchEnc": false,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 1
+      "StartClientType": 1,
+      "SelectedLogin": "",
+      "Logins": []
     },
     "wolvesbane test": {
       "Description": "wolvesbane test",
@@ -337,7 +411,9 @@
       "PatchEnc": true,
       "OSIEnc": false,
       "Selected": false,
-      "StartClientType": 0
+      "StartClientType": 0,
+      "SelectedLogin": "",
+      "Logins": []
     }
   }
 }
