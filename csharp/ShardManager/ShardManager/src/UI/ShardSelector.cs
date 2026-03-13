@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Gtk;
 using NLog;
 using Config;
+using UI.Settings;
 
 namespace UI
 {
@@ -14,6 +15,9 @@ namespace UI
 
         // Data
         private bool suppressChangeEvents = false;
+
+        // Settings window — created once on first launch
+        private SettingsWindow _settingsWindow;
 
         // Widget references
         private ComboBoxText shardCombo;
@@ -329,8 +333,11 @@ namespace UI
 
         private void OnLaunchClicked(object sender, EventArgs e)
         {
-            logger.Info("Launch clicked (stub)");
-            // TODO: implement launch
+            logger.Info("Launch: hiding server selector, opening settings window.");
+            if (_settingsWindow == null)
+                _settingsWindow = new SettingsWindow();
+            window.Hide();
+            _settingsWindow.Show();
         }
 
         private void OnLaunchCuoClicked(object sender, EventArgs e)

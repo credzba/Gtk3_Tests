@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- PythonSubTab.ui — Scripting > Python sub-tab -->
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">4</property>
+    <property name="margin">4</property>
+
+    <!-- Left: script list -->
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="width-request">240</property>
+        <property name="hscrollbar-policy">automatic</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <child>
+          <object class="GtkTreeView" id="tv_scripts">
+            <property name="visible">True</property>
+            <property name="headers-visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Right: controls -->
+    <child>
+      <object class="GtkBox" id="col_right">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+
+        <!-- Inspect buttons row -->
+        <child>
+          <object class="GtkBox" id="row_inspect">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkButton" id="btn_inspect">
+                <property name="visible">True</property>
+                <property name="label">Inspect</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_inspect_gump">
+                <property name="visible">True</property>
+                <property name="label">Inspect Gump</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Script Info frame -->
+        <child>
+          <object class="GtkFrame">
+            <property name="visible">True</property>
+            <property name="label">Script Info</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">2</property>
+                <property name="margin">6</property>
+                <child><object class="GtkCheckButton" id="chk_loop_mode">
+                  <property name="visible">True</property><property name="label">Loop Mode</property>
+                </object></child>
+                <child><object class="GtkCheckButton" id="chk_wait_before_interrupt">
+                  <property name="visible">True</property><property name="label">Wait before interrupt</property>
+                </object></child>
+                <child><object class="GtkCheckButton" id="chk_autostart_at_login">
+                  <property name="visible">True</property><property name="label">AutoStart at Login</property>
+                </object></child>
+                <child><object class="GtkCheckButton" id="chk_preload">
+                  <property name="visible">True</property><property name="label">Preload</property>
+                </object></child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Script Operation frame -->
+        <child>
+          <object class="GtkFrame">
+            <property name="visible">True</property>
+            <property name="label">Script Operation</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+
+                <child>
+                  <object class="GtkBox"><property name="visible">True</property>
+                    <property name="orientation">horizontal</property><property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="btn_script_add">
+                        <property name="visible">True</property><property name="label">Add</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_remove">
+                        <property name="visible">True</property><property name="label">Remove</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox"><property name="visible">True</property>
+                    <property name="orientation">horizontal</property><property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="btn_script_down">
+                        <property name="visible">True</property><property name="label">Down</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_to">
+                        <property name="visible">True</property><property name="label">To</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_up">
+                        <property name="visible">True</property><property name="label">Up</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkBox"><property name="visible">True</property>
+                    <property name="orientation">horizontal</property><property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="btn_script_new">
+                        <property name="visible">True</property><property name="label">New</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_edit">
+                        <property name="visible">True</property><property name="label">Edit</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+
+                <!-- Transport icon-style buttons -->
+                <child>
+                  <object class="GtkBox"><property name="visible">True</property>
+                    <property name="orientation">horizontal</property><property name="spacing">4</property>
+                    <child>
+                      <object class="GtkButton" id="btn_script_stop">
+                        <property name="visible">True</property><property name="label">Stop</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_reload">
+                        <property name="visible">True</property><property name="label">Reload</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_script_play">
+                        <property name="visible">True</property><property name="label">Play</property>
+                      </object><packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Search -->
+        <child>
+          <object class="GtkBox"><property name="visible">True</property>
+            <property name="orientation">horizontal</property><property name="spacing">4</property>
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">Search</property>
+            </object></child>
+            <child>
+              <object class="GtkEntry" id="ent_script_search">
+                <property name="visible">True</property>
+              </object><packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+        <!-- Error/message checkboxes -->
+        <child><object class="GtkCheckButton" id="chk_log_script_error">
+          <property name="visible">True</property><property name="label">Log Script Error</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_show_script_error_message">
+          <property name="visible">True</property>
+          <property name="label">Show Script Error Message</property>
+          <property name="active">True</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_show_char_client_messages">
+          <property name="visible">True</property><property name="label">Show Char/Client Messages</property>
+        </object></child>
+
+        <!-- Spacer -->
+        <child><object class="GtkLabel"><property name="visible">True</property></object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+      <packing><property name="expand">False</property></packing>
+    </child>
+
+  </object>
+</interface>

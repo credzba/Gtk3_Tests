@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using NLog;
 using UI;
+using Config;
 
 public class Program
 {
@@ -28,6 +29,10 @@ public class Program
         }
 
         logger.Info("Using shards file: {0}", shardsFile);
+
+        // Initialize ProfileManager — must happen before any tab Config is accessed
+        ProfileManager.Init(shardsFile);
+        logger.Info("ProfileManager ready. Profiles dir: {0}", ProfileManager.Instance.ProfilesDir);
 
         var mainWindow = new ShardSelector(shardsFile);
         mainWindow.Run();

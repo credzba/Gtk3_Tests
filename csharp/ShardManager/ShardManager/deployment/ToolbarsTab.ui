@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkNotebook" id="toolbars_subnotebook">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+  </object>
+</interface>

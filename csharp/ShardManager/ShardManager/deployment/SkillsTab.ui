@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <property name="margin">6</property>
+
+    <!-- Left: skills tree -->
+    <child>
+      <object class="GtkScrolledWindow" id="sw_skills">
+        <property name="visible">True</property>
+        <property name="hscrollbar-policy">automatic</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <child>
+          <object class="GtkTreeView" id="tv_skills">
+            <property name="visible">True</property>
+            <property name="headers-visible">True</property>
+          </object>
+        </child>
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+    <!-- Right: controls -->
+    <child>
+      <object class="GtkBox" id="col_right">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <property name="margin">4</property>
+        <property name="width-request">140</property>
+
+        <child>
+          <object class="GtkButton" id="btn_reset_plusminus">
+            <property name="visible">True</property>
+            <property name="label">Reset +/-</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox" id="row_set_locks">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label">Set all locks:</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="cbo_set_all_locks">
+                <property name="visible">True</property>
+              </object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkButton" id="btn_copy_selected">
+            <property name="visible">True</property>
+            <property name="label">Copy Selected</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkButton" id="btn_copy_all">
+            <property name="visible">True</property>
+            <property name="label">Copy All</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkCheckButton" id="chk_display_changes">
+            <property name="visible">True</property>
+            <property name="label">Display Changes</property>
+          </object>
+        </child>
+
+        <!-- Spacer -->
+        <child>
+          <object class="GtkLabel"><property name="visible">True</property></object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+
+        <child>
+          <object class="GtkBox" id="row_base_total">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkLabel" id="lbl_base_total">
+                <property name="visible">True</property>
+                <property name="label">Base Total:  0.0</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+      </object>
+    </child>
+
+  </object>
+</interface>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- RazorSettingsSubTab.ui -->
+  <object class="GtkAdjustment" id="adj_opacity">
+    <property name="lower">10</property>
+    <property name="upper">100</property>
+    <property name="value">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">6</property>
+    <property name="margin">6</property>
+
+    <!-- Row 1: checkboxes + Changelog button -->
+    <child>
+      <object class="GtkBox" id="row1">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkCheckButton" id="chk_smart_cpu">
+            <property name="visible">True</property>
+            <property name="label">Use smart CPU usage reduction</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="chk_smart_always_on_top">
+            <property name="visible">True</property>
+            <property name="label">Use Smart Always on Top</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_changelog">
+            <property name="visible">True</property>
+            <property name="label">Changelog</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Row 2 -->
+    <child>
+      <object class="GtkBox" id="row2">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkCheckButton" id="chk_remember_pwd">
+            <property name="visible">True</property>
+            <property name="label">Remember passwords</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="chk_force_game_size">
+            <property name="visible">True</property>
+            <property name="label">Force Game Size:</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="ent_game_width">
+            <property name="visible">True</property>
+            <property name="width-chars">5</property>
+            <property name="text">800</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">X</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="ent_game_height">
+            <property name="visible">True</property>
+            <property name="width-chars">5</property>
+            <property name="text">600</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Row 3 -->
+    <child>
+      <object class="GtkBox" id="row3">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkCheckButton" id="chk_show_launcher">
+            <property name="visible">True</property>
+            <property name="label">Show Launcher Window</property>
+            <property name="active">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Show in:</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="rdo_taskbar">
+            <property name="visible">True</property>
+            <property name="label">Taskbar</property>
+            <property name="active">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="rdo_system_tray">
+            <property name="visible">True</property>
+            <property name="label">System Tray</property>
+            <property name="group">rdo_taskbar</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Row 4 -->
+    <child>
+      <object class="GtkBox" id="row4">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label">Default Client Priority:</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="cbo_client_priority">
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="chk_remote_control">
+            <property name="visible">True</property>
+            <property name="label">Enable Remote Control</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+    </child>
+
+    <!-- Separator -->
+    <child>
+      <object class="GtkSeparator">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+      </object>
+    </child>
+
+    <!-- Profiles section -->
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="label">Profiles</property>
+        <property name="xalign">0</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="row_profiles">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkComboBoxText" id="cbo_profiles">
+            <property name="visible">True</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_profile_add">
+            <property name="visible">True</property>
+            <property name="label">Add</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_profile_delete">
+            <property name="visible">True</property>
+            <property name="label">Delete</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="row_profiles2">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="lbl_linked_to">
+            <property name="visible">True</property>
+            <property name="label">Linked to:</property>
+            <property name="xalign">0</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_profile_rename">
+            <property name="visible">True</property>
+            <property name="label">Rename</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_profile_clone">
+            <property name="visible">True</property>
+            <property name="label">Clone</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="row_profiles3">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkButton" id="btn_profile_link">
+            <property name="visible">True</property>
+            <property name="label">Link</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_profile_unlink">
+            <property name="visible">True</property>
+            <property name="label">UnLink</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+    </child>
+
+    <!-- Separator -->
+    <child>
+      <object class="GtkSeparator">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+      </object>
+    </child>
+
+    <!-- Opacity row -->
+    <child>
+      <object class="GtkBox" id="row_opacity">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel" id="lbl_opacity">
+            <property name="visible">True</property>
+            <property name="label">Opacity: 100%</property>
+            <property name="xalign">0</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale" id="scale_opacity">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="adjustment">adj_opacity</property>
+            <property name="draw-value">False</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+    </child>
+
+    <!-- Spacer -->
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+      </object>
+      <packing><property name="expand">True</property></packing>
+    </child>
+
+  </object>
+</interface>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- AutolootSubTab.ui — Agents > Autoloot sub-tab -->
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">4</property>
+    <property name="margin">4</property>
+
+    <!-- Top row: list selector -->
+    <child>
+      <object class="GtkBox" id="row_list_selector">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">4</property>
+        <child><object class="GtkLabel"><property name="visible">True</property>
+          <property name="label">Autoloot List:</property>
+        </object></child>
+        <child>
+          <object class="GtkComboBoxText" id="cbo_autoloot_list">
+            <property name="visible">True</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child><object class="GtkButton" id="btn_autoloot_add">
+          <property name="visible">True</property><property name="label">Add</property>
+        </object></child>
+        <child><object class="GtkButton" id="btn_autoloot_remove">
+          <property name="visible">True</property><property name="label">Remove</property>
+        </object></child>
+        <child><object class="GtkButton" id="btn_autoloot_clone">
+          <property name="visible">True</property><property name="label">Clone</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_allow_loot_hidden">
+          <property name="visible">True</property><property name="label">Allow looting while hidden</property>
+        </object></child>
+      </object>
+    </child>
+
+    <!-- Main content row -->
+    <child>
+      <object class="GtkBox" id="row_main">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">4</property>
+
+        <!-- Left: bag + checkboxes + items tree -->
+        <child>
+          <object class="GtkBox" id="col_left">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="width-request">380</property>
+
+            <!-- AutoLoot Bag frame -->
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="label">AutoLoot Bag</property>
+                <child>
+                  <object class="GtkBox"><property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property><property name="margin">4</property>
+                    <child>
+                      <object class="GtkBox"><property name="visible">True</property>
+                        <property name="orientation">horizontal</property><property name="spacing">4</property>
+                        <child><object class="GtkLabel"><property name="visible">True</property>
+                          <property name="label">Serial:</property>
+                        </object></child>
+                        <child>
+                          <object class="GtkEntry" id="ent_bag_serial">
+                            <property name="visible">True</property>
+                            <property name="text">0x00000000</property>
+                            <property name="width-request">100</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                    <child><object class="GtkButton" id="btn_set_bag">
+                      <property name="visible">True</property><property name="label">Set Bag</property>
+                    </object></child>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <!-- Enable/options checkboxes -->
+            <child><object class="GtkCheckButton" id="chk_enable_autoloot">
+              <property name="visible">True</property><property name="label">Enable autoloot</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_no_open_corpse">
+              <property name="visible">True</property><property name="label">No Open Corpse</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_autostart_on_login">
+              <property name="visible">True</property><property name="label">Autostart OnLogin</property>
+            </object></child>
+
+            <!-- Items tree -->
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="visible">True</property>
+                <property name="hscrollbar-policy">automatic</property>
+                <property name="vscrollbar-policy">automatic</property>
+                <child>
+                  <object class="GtkTreeView" id="tv_autoloot_items">
+                    <property name="visible">True</property>
+                    <property name="headers-visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing><property name="expand">True</property><property name="fill">True</property></packing>
+            </child>
+
+          </object>
+        </child>
+
+        <!-- Right: delay/range controls + log -->
+        <child>
+          <object class="GtkBox" id="col_right">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">6</property>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child>
+                  <object class="GtkEntry" id="ent_autoloot_delay">
+                    <property name="visible">True</property><property name="width-request">60</property>
+                  </object>
+                </child>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Delay (ms)</property>
+                </object></child>
+                <child><object class="GtkButton" id="btn_autoloot_add_item">
+                  <property name="visible">True</property><property name="label">Add Item</property>
+                </object></child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child>
+                  <object class="GtkEntry" id="ent_autoloot_max_range">
+                    <property name="visible">True</property><property name="width-request">60</property>
+                  </object>
+                </child>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Max Range</property>
+                </object></child>
+                <child><object class="GtkButton" id="btn_autoloot_edit_props">
+                  <property name="visible">True</property><property name="label">Edit Props</property>
+                </object></child>
+              </object>
+            </child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">Autoloot Log</property><property name="xalign">0</property>
+            </object></child>
+
+            <child>
+              <object class="GtkEntry" id="ent_autoloot_log">
+                <property name="visible">True</property>
+                <property name="editable">False</property>
+              </object>
+            </child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property></object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+  </object>
+</interface>

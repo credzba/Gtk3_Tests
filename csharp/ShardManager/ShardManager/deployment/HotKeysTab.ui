@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <property name="margin">6</property>
+
+    <!-- Left: tree -->
+    <child>
+      <object class="GtkScrolledWindow" id="sw_hotkeys">
+        <property name="visible">True</property>
+        <property name="width-request">200</property>
+        <property name="hscrollbar-policy">automatic</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <child>
+          <object class="GtkTreeView" id="tv_hotkeys">
+            <property name="visible">True</property>
+            <property name="headers-visible">False</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Right: detail panel -->
+    <child>
+      <object class="GtkBox" id="col_right">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">8</property>
+        <property name="margin">6</property>
+
+        <!-- General section -->
+        <child>
+          <object class="GtkFrame" id="frame_general">
+            <property name="visible">True</property>
+            <property name="label">General</property>
+            <child>
+              <object class="GtkBox" id="box_general">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+                <child>
+                  <object class="GtkLabel" id="lbl_status">
+                    <property name="visible">True</property>
+                    <property name="label">Status: Enabled</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_onoff_key">
+                    <property name="visible">True</property>
+                    <property name="label">ON/OFF Key: None</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_enable">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="btn_enable">
+                        <property name="visible">True</property>
+                        <property name="label">Enable</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_disable">
+                        <property name="visible">True</property>
+                        <property name="label">Disable</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Master Key section -->
+        <child>
+          <object class="GtkFrame" id="frame_master_key">
+            <property name="visible">True</property>
+            <property name="label">Master Key</property>
+            <child>
+              <object class="GtkBox" id="box_master">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+                <child>
+                  <object class="GtkBox" id="row_master_key">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Key:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="ent_master_key">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_master_btns">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="btn_master_set">
+                        <property name="visible">True</property>
+                        <property name="label">Set</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_master_clear">
+                        <property name="visible">True</property>
+                        <property name="label">Clear</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Modify Key section -->
+        <child>
+          <object class="GtkFrame" id="frame_modify_key">
+            <property name="visible">True</property>
+            <property name="label">Modify Key</property>
+            <child>
+              <object class="GtkBox" id="box_modify">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+                <child>
+                  <object class="GtkBox" id="row_modify_key">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Key:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="ent_modify_key">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chk_pass_key_to_uo">
+                    <property name="visible">True</property>
+                    <property name="label">Pass Key to UO</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_modify_btns">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="btn_modify_set">
+                        <property name="visible">True</property>
+                        <property name="label">Set</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_modify_clear">
+                        <property name="visible">True</property>
+                        <property name="label">Clear</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Spacer -->
+        <child>
+          <object class="GtkLabel"><property name="visible">True</property></object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+  </object>
+</interface>

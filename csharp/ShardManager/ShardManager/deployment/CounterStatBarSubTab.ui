@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAdjustment" id="adj_counter_opacity">
+    <property name="lower">10</property>
+    <property name="upper">100</property>
+    <property name="value">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">10</property>
+    <property name="margin">6</property>
+
+    <!-- Column 1: General -->
+    <child>
+      <object class="GtkFrame" id="frame_general">
+        <property name="visible">True</property>
+        <property name="label">General</property>
+        <child>
+          <object class="GtkBox" id="box_general">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="margin">6</property>
+            <child>
+              <object class="GtkButton" id="btn_counter_open">
+                <property name="visible">True</property>
+                <property name="label">Open</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_counter_close">
+                <property name="visible">True</property>
+                <property name="label">Close</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_lock_toolbar">
+                <property name="visible">True</property>
+                <property name="label">Lock ToolBar</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_open_on_login">
+                <property name="visible">True</property>
+                <property name="label">Open On Login</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lbl_position">
+                <property name="visible">True</property>
+                <property name="label">X: 10 - Y:10</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Column 2: Item Count -->
+    <child>
+      <object class="GtkFrame" id="frame_item_count">
+        <property name="visible">True</property>
+        <property name="label">Item Count</property>
+        <child>
+          <object class="GtkBox" id="box_item_count">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="margin">6</property>
+            <child>
+              <object class="GtkComboBoxText" id="cbo_slot">
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_name">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Name:</property>
+                    <property name="width-chars">9</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="ent_slot_name">
+                    <property name="visible">True</property>
+                    <property name="text">Empty</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_graphics">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Graphics:</property>
+                    <property name="width-chars">9</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="ent_slot_graphics">
+                    <property name="visible">True</property>
+                    <property name="text">0x0000</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_color">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Color:</property>
+                    <property name="width-chars">9</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="ent_slot_color">
+                    <property name="visible">True</property>
+                    <property name="text">0x0000</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">-1 for all</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_show_warning">
+                <property name="visible">True</property>
+                <property name="label">Show Warning</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_warning">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Warning:</property>
+                    <property name="width-chars">9</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="ent_warning">
+                    <property name="visible">True</property>
+                    <property name="text">0</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_slot_btns">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkButton" id="btn_get_data">
+                    <property name="visible">True</property>
+                    <property name="label">Get Data</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_clear_slot">
+                    <property name="visible">True</property>
+                    <property name="label">Clear Slot</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing><property name="expand">True</property></packing>
+    </child>
+
+    <!-- Column 3: Layout + Opacity -->
+    <child>
+      <object class="GtkBox" id="col_layout">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+
+        <child>
+          <object class="GtkFrame" id="frame_layout">
+            <property name="visible">True</property>
+            <property name="label">Layout</property>
+            <child>
+              <object class="GtkBox" id="box_layout">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">4</property>
+                <property name="margin">6</property>
+                <child>
+                  <object class="GtkBox" id="row_style">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Style:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="cbo_layout_style">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="chk_show_hits">
+                        <property name="visible">True</property>
+                        <property name="label">Show Hits</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_size">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Size:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkComboBoxText" id="cbo_layout_size">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="chk_show_stamina">
+                        <property name="visible">True</property>
+                        <property name="label">Show Stamina</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_slots">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">Slots:</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_slots">
+                        <property name="visible">True</property>
+                        <property name="label">2</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_slots_plus">
+                        <property name="visible">True</property>
+                        <property name="label">+</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="btn_slots_minus">
+                        <property name="visible">True</property>
+                        <property name="label">-</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="chk_show_mana">
+                        <property name="visible">True</property>
+                        <property name="label">Show Mana</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="row_show_checks">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkLabel"><property name="visible">True</property></object>
+                      <packing><property name="expand">True</property></packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="col_checks">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">2</property>
+                        <child>
+                          <object class="GtkCheckButton" id="chk_show_weight">
+                            <property name="visible">True</property>
+                            <property name="label">Show Weight</property>
+                            <property name="active">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="chk_show">
+                            <property name="visible">True</property>
+                            <property name="label">Show</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="chk_show_tithe">
+                            <property name="visible">True</property>
+                            <property name="label">Show Tithe</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Opacity -->
+        <child>
+          <object class="GtkBox" id="row_opacity">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkLabel" id="lbl_counter_opacity">
+                <property name="visible">True</property>
+                <property name="label">100%</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScale" id="scale_counter_opacity">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="adjustment">adj_counter_opacity</property>
+                <property name="draw-value">False</property>
+              </object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel"><property name="visible">True</property></object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+      </object>
+    </child>
+
+  </object>
+</interface>

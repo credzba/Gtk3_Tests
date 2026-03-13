@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- OptionsTab.ui -->
+  <object class="GtkScrolledWindow" id="tab_root">
+    <property name="visible">True</property>
+    <property name="hscrollbar-policy">automatic</property>
+    <property name="vscrollbar-policy">automatic</property>
+    <child>
+      <object class="GtkBox" id="box_cols">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">8</property>
+        <property name="margin">6</property>
+
+        <!-- Col 1: Overrides / Warnings / Map -->
+        <child>
+          <object class="GtkBox" id="col1">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="width-request">210</property>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Overrides&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+            </object></child>
+
+            <child><object class="GtkButton" id="btn_razor_hue">
+              <property name="visible">True</property>
+              <property name="label">Razor Message Hue</property>
+            </object></child>
+
+            <child><object class="GtkButton" id="btn_warning_hue">
+              <property name="visible">True</property>
+              <property name="label">Warning Message Hue</property>
+            </object></child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child>
+                  <object class="GtkCheckButton" id="chk_override_speech">
+                    <property name="visible">True</property>
+                    <property name="label">Override Speech Hue</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+                <child><object class="GtkButton" id="btn_speech_hue">
+                  <property name="visible">True</property><property name="label">Set</property>
+                </object></child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child>
+                  <object class="GtkLabel"><property name="visible">True</property>
+                    <property name="label">Last Target Highlight:</property><property name="xalign">0</property>
+                  </object>
+                  <packing><property name="expand">True</property></packing>
+                </child>
+                <child><object class="GtkButton" id="btn_last_target_highlight">
+                  <property name="visible">True</property><property name="label">Set</property>
+                </object></child>
+              </object>
+            </child>
+
+            <child><object class="GtkCheckButton" id="chk_override_spell_hues">
+              <property name="visible">True</property><property name="label">Override Spell Hues:</property>
+            </object></child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child>
+                  <object class="GtkButton" id="btn_beneficial_hue">
+                    <property name="visible">True</property><property name="label">Beneficial</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_harmful_hue">
+                    <property name="visible">True</property><property name="label">Harmful</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_neutral_hue">
+                    <property name="visible">True</property><property name="label">Neutral</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Spell Format:</property>
+                </object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_spell_format">
+                    <property name="visible">True</property>
+                    <property name="text">{power} {spell}</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Warnings and Errors&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Razor messages:</property>
+                </object></child>
+                <child>
+                  <object class="GtkComboBoxText" id="cbo_razor_messages">
+                    <property name="visible">True</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Map Integration&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Path:</property>
+                </object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_map_path">
+                    <property name="visible">True</property>
+                  </object><packing><property name="expand">True</property></packing>
+                </child>
+              </object>
+            </child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property></object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+        <!-- Col 2: Targets / Containers / Stealth / Misc -->
+        <child>
+          <object class="GtkBox" id="col2">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="width-request">200</property>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Targets&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_smart_last_target">
+              <property name="visible">True</property><property name="label">Use smart last target</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_range_check_last_target">
+              <property name="visible">True</property><property name="label">Range check Last Target</property>
+            </object></child>
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Tiles:</property></object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_target_tiles">
+                    <property name="visible">True</property><property name="text">12</property>
+                    <property name="width-request">50</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child><object class="GtkCheckButton" id="chk_show_target_flag">
+              <property name="visible">True</property><property name="label">Show target flag on single click</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Containers&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Open new corpses within</property></object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_corpse_tiles">
+                    <property name="visible">True</property><property name="text">2</property>
+                    <property name="width-request">40</property>
+                  </object>
+                </child>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">tiles</property></object></child>
+              </object>
+            </child>
+            <child><object class="GtkCheckButton" id="chk_auto_search_containers">
+              <property name="visible">True</property><property name="label">Auto search new containers</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_ignore_pouches">
+              <property name="visible">True</property><property name="label">Ignore pouches</property>
+              <property name="active">True</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Stealth&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_count_stealth_steps">
+              <property name="visible">True</property><property name="label">Count stealth steps</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_block_run_stealthed">
+              <property name="visible">True</property><property name="label">Block run if Stealthed</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Miscellaneous&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_block_dismount">
+              <property name="visible">True</property><property name="label">Block dismount in war mode</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_auto_stack_ore">
+              <property name="visible">True</property><property name="label">Auto-Stack Ore/Fish/Logs at Feet</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_auto_open_doors">
+              <property name="visible">True</property><property name="label">Automatically open doors</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_disable_if_hidden">
+              <property name="visible">True</property><property name="label">Disable if hidden</property>
+              <property name="sensitive">False</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property></object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+        <!-- Col 3: Queues / Visual / Spells / Status -->
+        <child>
+          <object class="GtkBox" id="col3">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="width-request">220</property>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Queues&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_show_action_queue">
+              <property name="visible">True</property><property name="label">Show Action-Queue status messages</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_auto_queue_delay">
+              <property name="visible">True</property><property name="label">Auto-Queue Object Delay actions</property>
+            </object></child>
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Object delay:</property></object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_object_delay">
+                    <property name="visible">True</property><property name="text">600</property>
+                    <property name="width-request">55</property>
+                  </object>
+                </child>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">ms</property></object></child>
+              </object>
+            </child>
+            <child><object class="GtkCheckButton" id="chk_queue_last_target">
+              <property name="visible">True</property><property name="label">Queue Last Target and Target Self</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Visual&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_show_names_new_mobiles">
+              <property name="visible">True</property><property name="label">Show Names of New/Inc Mobiles</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_show_names_new_corpses">
+              <property name="visible">True</property><property name="label">Show Names of New/Inc Corpses</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_show_health_above">
+              <property name="visible">True</property><property name="label">Show health above Mobiles</property>
+            </object></child>
+            <child>
+              <object class="GtkBox"><property name="visible">True</property>
+                <property name="orientation">horizontal</property><property name="spacing">4</property>
+                <child><object class="GtkLabel"><property name="visible">True</property>
+                  <property name="label">Health Format:</property></object></child>
+                <child>
+                  <object class="GtkEntry" id="ent_health_format">
+                    <property name="visible">True</property><property name="text">{0}%</property>
+                    <property name="width-request">70</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child><object class="GtkCheckButton" id="chk_show_party_mana_stam">
+              <property name="visible">True</property><property name="label">Show party members mana/stam</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Spells / Potions&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_auto_unreequip">
+              <property name="visible">True</property><property name="label">Auto Un/Re-equip hands for potions</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_auto_unequip_casting">
+              <property name="visible">True</property><property name="label">Auto Unequip hands before casting</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_use_packets_druid">
+              <property name="visible">True</property><property name="label">Use packets for Druid/Cleric spells</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property>
+              <property name="label">&lt;b&gt;Status Window&lt;/b&gt;</property>
+              <property name="use-markup">True</property><property name="xalign">0</property>
+              <property name="margin-top">4</property>
+            </object></child>
+            <child><object class="GtkCheckButton" id="chk_pre_aos_status">
+              <property name="visible">True</property><property name="label">Use Pre-AOS status window</property>
+            </object></child>
+
+            <child><object class="GtkLabel"><property name="visible">True</property></object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+
+      </object>
+    </child>
+  </object>
+</interface>

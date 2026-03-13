@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- VirtualSubTab.ui — Filters > Virtual sub-tab -->
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <property name="margin">6</property>
+
+    <!-- Left: filter checkboxes + more filters scrolled list -->
+    <child>
+      <object class="GtkBox" id="col_left">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">4</property>
+        <property name="width-request">180</property>
+
+        <child><object class="GtkLabel"><property name="visible">True</property>
+          <property name="label">Filters</property><property name="xalign">0</property>
+        </object></child>
+
+        <child><object class="GtkCheckButton" id="chk_repeating_sys">
+          <property name="visible">True</property><property name="label">Repeating Sys Messages</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_snooping">
+          <property name="visible">True</property><property name="label">Snooping Messages</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_poison">
+          <property name="visible">True</property><property name="label">Poison Messages</property>
+        </object></child>
+        <child><object class="GtkCheckButton" id="chk_monster">
+          <property name="visible">True</property><property name="label">Monster Messages</property>
+        </object></child>
+
+        <child><object class="GtkLabel"><property name="visible">True</property>
+          <property name="label">More Filters:</property><property name="xalign">0</property>
+          <property name="margin-top">4</property>
+        </object></child>
+
+        <!-- Scrolled list of more-filter checkboxes (built in code) -->
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hscrollbar-policy">never</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <child>
+              <object class="GtkBox" id="box_more_filters">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">2</property>
+              </object>
+            </child>
+          </object>
+          <packing><property name="expand">True</property><property name="fill">True</property></packing>
+        </child>
+
+      </object>
+    </child>
+
+    <!-- Right: Journal filter text entry + filter list -->
+    <child>
+      <object class="GtkBox" id="col_right">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">4</property>
+
+        <child><object class="GtkLabel"><property name="visible">True</property>
+          <property name="label">Journal Filter Text</property><property name="xalign">0</property>
+        </object></child>
+
+        <child>
+          <object class="GtkBox"><property name="visible">True</property>
+            <property name="orientation">horizontal</property><property name="spacing">4</property>
+            <child>
+              <object class="GtkEntry" id="ent_journal_filter_text">
+                <property name="visible">True</property>
+              </object><packing><property name="expand">True</property></packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_journal_add">
+                <property name="visible">True</property><property name="label">Add</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hscrollbar-policy">automatic</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <child>
+              <object class="GtkListBox" id="lst_journal_filters">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing><property name="expand">True</property><property name="fill">True</property></packing>
+        </child>
+
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+  </object>
+</interface>

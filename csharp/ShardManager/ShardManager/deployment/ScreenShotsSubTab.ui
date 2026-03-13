@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">6</property>
+    <property name="margin">6</property>
+
+    <!-- Top row: directory path + Take Screenshot Now -->
+    <child>
+      <object class="GtkBox" id="row_top">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkEntry" id="ent_screenshot_dir">
+            <property name="visible">True</property>
+          </object>
+          <packing><property name="expand">True</property></packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_take_now">
+            <property name="visible">True</property>
+            <property name="label">Take Screen Shot Now</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Middle: thumbnail list (left) + preview (right) -->
+    <child>
+      <object class="GtkBox" id="row_middle">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkScrolledWindow" id="sw_thumbnails">
+            <property name="visible">True</property>
+            <property name="width-request">200</property>
+            <child>
+              <object class="GtkListBox" id="lb_screenshots">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkFrame" id="frame_preview">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkImage" id="img_preview">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing><property name="expand">True</property><property name="fill">True</property></packing>
+        </child>
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+    <!-- Bottom: format + capture options -->
+    <child>
+      <object class="GtkBox" id="row_bottom">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkBox" id="col_left">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkBox" id="row_format">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="label">Image Format:</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="cbo_image_format">
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="row_capture_mode">
+                <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkRadioButton" id="rdo_uo_only">
+                    <property name="visible">True</property>
+                    <property name="label">UO Only</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="rdo_full_screen">
+                    <property name="visible">True</property>
+                    <property name="label">Full Screen</property>
+                    <property name="group">rdo_uo_only</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_include_timestamp">
+                <property name="visible">True</property>
+                <property name="label">Include Timestamp on images</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_auto_death">
+                <property name="visible">True</property>
+                <property name="label">Auto Death Screen Capture</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+  </object>
+</interface>

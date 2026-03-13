@@ -27,17 +27,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Embed .ui files as resources (fallback if external file missing) -->
-    <EmbeddedResource Include="deployment/ShardSelector.ui">
-      <LogicalName>ShardManager.ShardSelector.ui</LogicalName>
+    <!-- Embed all .ui files as resources (fallback if external file missing) -->
+    <EmbeddedResource Include="deployment/*.ui">
+      <LogicalName>ShardManager.%(Filename).ui</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Copy all deployment files alongside the exe, flat into output dir -->
-    <Content Include="deployment/ShardSelector.ui">
+    <!-- Copy all .ui files alongside the exe (flat) -->
+    <Content Include="deployment/*.ui">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>ShardSelector.ui</TargetPath>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
     </Content>
     <!-- Copy NLog config files from deployment/ -->
     <Content Include="deployment/NLog.config;deployment/NLog.*.config">

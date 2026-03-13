@@ -4,10 +4,10 @@ APP=ShardManager.exe
 SOLUTION=ShardManager.sln
 
 
-# All C# source files under src/
-SRC=$(wildcard ShardManager/src/*.cs) $(wildcard ShardManager/src/Config/*.cs) $(wildcard ShardManager/src/UI/*.cs)
-# All UI files under ShardManager/src/UI/
-UI_FILES=$(wildcard ShardManager/src/UI/*.ui)
+# All C# source files under src/ (recursive via find)
+SRC=$(shell find ShardManager/src -name '*.cs')
+# All deployment UI files
+UI_FILES=$(wildcard ShardManager/deployment/*.ui)
 
 # Detect OS and include platform-specific makefile
 # Check both the Windows env var (cmd/PowerShell) and uname -o (MSYS2/Cygwin)

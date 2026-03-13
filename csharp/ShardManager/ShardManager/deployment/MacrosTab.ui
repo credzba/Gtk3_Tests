@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- MacrosTab.ui -->
+  <object class="GtkBox" id="tab_root">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">4</property>
+    <property name="margin">4</property>
+
+    <!-- Left: macro list + New/Delete/Save -->
+    <child>
+      <object class="GtkBox" id="col_left">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">4</property>
+        <property name="width-request">170</property>
+
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hscrollbar-policy">never</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <child>
+              <object class="GtkListBox" id="lst_macros">
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing><property name="expand">True</property><property name="fill">True</property></packing>
+        </child>
+
+        <child>
+          <object class="GtkBox" id="row_macro_mgmt">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+            <child>
+              <object class="GtkButton" id="btn_macro_new">
+                <property name="visible">True</property>
+                <property name="label">New</property>
+              </object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_macro_delete">
+                <property name="visible">True</property>
+                <property name="label">Delete</property>
+              </object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_macro_save">
+                <property name="visible">True</property>
+                <property name="label">Save</property>
+              </object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <!-- Right: controls + actions tree + status -->
+    <child>
+      <object class="GtkBox" id="col_right">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">4</property>
+
+        <!-- Transport + loop/hotkey row -->
+        <child>
+          <object class="GtkBox" id="row_transport">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+
+            <child>
+              <object class="GtkButton" id="btn_record">
+                <property name="visible">True</property>
+                <property name="label">Record</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_play">
+                <property name="visible">True</property>
+                <property name="label">Play</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_stop">
+                <property name="visible">True</property>
+                <property name="label">Stop</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_stop_record">
+                <property name="visible">True</property>
+                <property name="label">Stop Record</property>
+              </object>
+            </child>
+
+            <!-- Spacer -->
+            <child>
+              <object class="GtkLabel"><property name="visible">True</property></object>
+              <packing><property name="expand">True</property></packing>
+            </child>
+
+            <child>
+              <object class="GtkCheckButton" id="chk_macro_loop">
+                <property name="visible">True</property>
+                <property name="label">Loop</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Hot Key row -->
+        <child>
+          <object class="GtkBox" id="row_hotkey">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">4</property>
+
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="label">Hot Key  Key:</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="ent_macro_hotkey">
+                <property name="visible">True</property>
+                <property name="width-request">80</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_hotkey_set">
+                <property name="visible">True</property>
+                <property name="label">Set</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_hotkey_clear">
+                <property name="visible">True</property>
+                <property name="label">Clear</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="chk_macro_pass_key">
+                <property name="visible">True</property>
+                <property name="label">Pass Key To UO</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Actions tree -->
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hscrollbar-policy">automatic</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <child>
+              <object class="GtkTreeView" id="tv_macro_actions">
+                <property name="visible">True</property>
+                <property name="headers-visible">True</property>
+              </object>
+            </child>
+          </object>
+          <packing><property name="expand">True</property><property name="fill">True</property></packing>
+        </child>
+
+        <!-- Status label -->
+        <child>
+          <object class="GtkLabel" id="lbl_macro_status">
+            <property name="visible">True</property>
+            <property name="label">Ready</property>
+            <property name="xalign">0</property>
+          </object>
+        </child>
+
+      </object>
+      <packing><property name="expand">True</property><property name="fill">True</property></packing>
+    </child>
+
+  </object>
+</interface>
