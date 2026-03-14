@@ -18,7 +18,8 @@ namespace UI
         /// </summary>
         /// <param name="uiFile">The filename of the UI</param>
         /// <param name="embeddedResourceName">The embedded resource name</param>
-        public GtkWindowBase(string uiFile, string embeddedResourceName)
+        /// <param name="windowId">The id of the GtkWindow object in the UI file (default: "main_window")</param>
+        public GtkWindowBase(string uiFile, string embeddedResourceName, string windowId = "main_window")
         {
             Environment.SetEnvironmentVariable("GTK_DEBUG", "interactive");
             Environment.SetEnvironmentVariable("G_MESSAGES_DEBUG", "all");
@@ -27,13 +28,17 @@ namespace UI
 
             Builder builder = new Builder();
 
+            // Resolve UI file path relative to the executable directory
+            string exeDir = AppDomain.CurrentDomain.BaseDirectory;
+            string exeUiPath = Path.Combine(exeDir, uiFile);
+
             // Try to load embedded resource
             var assembly = Assembly.GetExecutingAssembly();
             var resourceStream = assembly.GetManifestResourceStream(embeddedResourceName);
 
-            if (File.Exists(uiFile))
+            if (File.Exists(exeUiPath))
             {
-                builder.AddFromFile(uiFile);
+                builder.AddFromFile(exeUiPath);
             }
             else if (resourceStream != null)
             {
@@ -49,7 +54,7 @@ namespace UI
             }
 
             // Get the main window object
-            window = (Gtk.Window)builder.GetObject("main_window");
+            window = (Gtk.Window)builder.GetObject(windowId);
 
             // Let derived classes handle further widget setup and signals
             Setup(builder);

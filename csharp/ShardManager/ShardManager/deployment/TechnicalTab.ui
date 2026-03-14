@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <requires lib="gtk+" version="3.0"/>
   <!-- TechnicalTab.ui — contains only the sub-notebook; sub-tab content is in separate .ui files -->
   <object class="GtkBox" id="tab_root">
     <property name="visible">True</property>

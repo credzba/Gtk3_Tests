@@ -9,12 +9,11 @@ using UI.Settings.Tabs;
 
 namespace UI.Settings
 {
-    public class SettingsWindow
+    public class SettingsWindow : GtkWindowBase
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private Gtk.Window  _window;
-        private Notebook    _notebook;
+        private Notebook _notebook;
 
         // One entry per top-level tab, in display order
         private readonly List<TabBase> _tabs = new List<TabBase>
@@ -37,21 +36,17 @@ namespace UI.Settings
         // ── Construction ───────────────────────────────────────────────────
 
         public SettingsWindow()
+            : base("SettingsWindow.ui", "ShardManager.SettingsWindow.ui", "wnd_settings")
         {
-            BuildWindow();
         }
 
-        private void BuildWindow()
-        {
-            _window = new Gtk.Window("Settings")
-            {
-                DefaultWidth  = 680,
-                DefaultHeight = 440,
-                WindowPosition = WindowPosition.Center
-            };
-            _window.DeleteEvent += (o, e) => { CustomMainLoop.Instance.Quit(); e.RetVal = true; };
+        // ── GtkWindowBase ──────────────────────────────────────────────────
 
-            _notebook = new Notebook { Visible = true };
+        protected override void Setup(Builder builder)
+        {
+            _notebook = (Notebook)builder.GetObject("notebook_settings");
+
+            window.DeleteEvent += (o, e) => { CustomMainLoop.Instance.Quit(); e.RetVal = true; };
 
             foreach (var tab in _tabs)
             {
@@ -61,8 +56,6 @@ namespace UI.Settings
             }
 
             _notebook.SwitchPage += OnSwitchPage;
-
-            _window.Add(_notebook);
 
             // Populate the first visible tab immediately
             PopulateTab(0);
@@ -84,15 +77,15 @@ namespace UI.Settings
 
         // ── Public API ─────────────────────────────────────────────────────
 
-        public void Show()
+        public new void Show()
         {
-            _window.ShowAll();
-            _window.Present();
+            window.ShowAll();
+            window.Present();
         }
 
         public void Hide()
         {
-            _window.Hide();
+            window.Hide();
         }
     }
 }
