@@ -68,6 +68,17 @@ namespace UI.Settings
                 if (root == null)
                     throw new Exception($"UI file '{UiFile}' has no object with id 'tab_root'.");
 
+                // Strip the GtkWindow wrapper added for Glade compatibility.
+                // The ui file sets visible=True so GTK realizes the window immediately;
+                // we must Hide() it first so its GDK window is freed before we
+                // Unparent tab_root.  We intentionally do NOT Destroy() the wrapper
+                // — the builder manages its lifetime and will drop its ref when GCd.
+                if (root.Parent is Gtk.Window wrapperWin)
+                {
+                    wrapperWin.Hide();
+                    root.Unparent();
+                }
+
                 _container.PackStart(root, true, true, 0);
                 _container.ShowAll();
 
